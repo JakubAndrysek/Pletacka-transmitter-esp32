@@ -1,0 +1,184 @@
+#include <Arduino.h>
+#include <WiFi.h>
+#include "debug.h"
+#include "NetteApi.hpp"
+#include "Optocoupler.hpp"
+#include "credentials.h"
+
+
+
+void program()
+{
+  enum setups
+  {
+    WAIT_FOR_START = 0,
+    RUN = 1,
+  };
+
+  enum pins
+  {
+    PL1_FINISHED = 26,
+    PL1_STOP = 27,    
+    PL2_FINISHED = 14,
+    PL2_STOP= 13,
+  };
+
+  enum states
+  {
+    SSTOP = 1,
+    SFINISHED = 0,
+  };
+
+  enum pletac_run
+  {
+    DEF = -1,
+    ON = 0,
+    STOP = 1, 
+    FINISHED = 2,
+  };
+
+
+
+  struct pletacStates
+  {
+    bool now;
+    bool last;
+    bool first;
+  };
+  
+  struct pletac
+  {
+    pletacStates Fin;
+    pletacStates Stop;
+  }pletac1;
+
+  
+
+  
+
+  int Spletac1_start = RUN;
+  int Spletac1_run = ON;
+
+  Optocoupler pl1Fin(PL1_FINISHED);
+  Optocoupler pl1Stop(PL1_STOP);
+
+
+  Serial.begin(115200);
+
+  WiFi.begin(SSID, PASSWORD);
+  Serial.println("Connecting");
+  while(WiFi.status() != WL_CONNECTED) { 
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+
+  Serial.println("Start");
+
+  pletac1.Fin.last = pl1Fin.state();
+  pletac1.Stop.last = pl1Fin.state();
+
+  while (1)
+  {
+    pletac1.Fin.now = pl1Fin.state();
+    pletac1.Stop.now = pl1Fin.state();
+    // pl1Fin.printState();
+    // pl1Stop.printState();
+    
+    switch (Spletac1_start)
+    {
+    case WAIT_FOR_START:
+      if((pl1Fin.state()==1)&&(pl1Stop.state()==1))
+      {
+        Spletac1_start = RUN;
+        Serial.println("Pletacka1 - Start");
+      }
+      break;
+
+
+    case RUN:
+      // if((pletac1.Stop.now==SSTOP)&&(pletac1.Stop.now != pletac1.Stop.last))
+      // {
+      //   dprintf("SSTOP");
+      // }
+      // else
+      // {
+      //   dprintf("RUN");
+      //   if ((pletac1.Fin.now==SFINISHED)&&(pletac1.Fin.now != pletac1.Fin.last))
+      //   {
+      //     dprintf("FINISHED");
+      //   }
+        
+      // }
+      switch (Spletac1_run)
+      {
+      case ON:
+        dprintf("ON");
+        Spletac1_run = DEF;
+        break;
+      case STOP:
+        dprintf("STOP");
+        // if(pletac1.Stop.first)
+        // {
+        //   dprintf("STOP----FIRST");
+        //   pletac1.Stop.first = 0;
+        // }
+        if (pletac1.Stop.now!=SSTOP) //END STOP
+        {
+          dprintf("REWORK---FIRST");
+          Spletac1_run = DEF;
+        }
+        break;
+
+      case FINISHED:
+        dprintf("FINISHED");
+        if(pletac1.Fin.first == 1)
+        // {
+        //   dprintf("FINISHED-----FIRST");
+        //   pletac1.Fin.first = 0;
+        // }
+        Spletac1_run = DEF;
+        break;
+      
+      default:
+        dprintf("DEF");
+        if(pletac1.Stop.now==SSTOP)
+        {
+          Spletac1_run = STOP;
+          pletac1.Stop.first = 1;
+        }
+        else
+        {
+          if(pletac1.Fin.now==SFINISHED)
+          {
+            Spletac1_run = FINISHED;
+            pletac1.Fin.first = 1;
+          }
+        }
+        
+        break;
+      }
+      
+      break;
+    }  
+    pletac1.Fin.last = pletac1.Fin.now;
+    pletac1.Stop.last = pletac1.Stop.now;
+    delay(500);    
+  }
+  
+}
+
+
+
+
+
+
+void setup() {
+  program();
+}
+
+void loop() {
+  
+}
