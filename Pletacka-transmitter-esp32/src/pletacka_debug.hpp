@@ -12,7 +12,7 @@ private:
     struct debugConfig
     {
         debugConfig()
-            : Debug_IPs("192.168.0.13")
+            : Debug_IPs("192.168.0.112")
             , Debug_port(12345)
             , Data_port(12346) {       
         }
@@ -21,13 +21,31 @@ private:
         int Data_port;                //Proxy data port
     };
 
+    debugConfig debugCfg;
+
     IPAddress Debug_IP;
+
+
+
     
 public:
-    pletacka_debug(/* args */);
-    ~pletacka_debug();
+	WiFiClient Debug;
+    WiFiClient Data;
     void init(pletackaConfig config);
+	// void send(String message);
+	
 };
+
+
+
+
+
+
+
+
+
+
+
 
 
 

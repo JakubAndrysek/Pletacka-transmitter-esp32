@@ -18,7 +18,7 @@ private:
             , apPassword("")
             , apChanel(1) {
         }
-            
+        
         String wifiName;    //WiFi name
         String wifiPassword;//WiFi password
         int wifiChanel;     //WiFi chanel
