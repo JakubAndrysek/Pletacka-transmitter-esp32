@@ -1,5 +1,4 @@
 #include "pletacka_wifi.hpp"
-#include "pletacka.hpp"
 
 pletacka_wifi::pletacka_wifi()
 {
@@ -52,6 +51,6 @@ void pletacka_wifi::connectWifi()
 
 void pletacka_wifi::startAP()
 {
-    Serial.println("Starting " + wifiCfg.apName + " AP");
+    Serial.println("Starting **" + wifiCfg.apName + "** AP");
     WiFi.softAP(wifiCfg.apName.c_str(), wifiCfg.apPassword.c_str(), wifiCfg.apChanel );
 }
