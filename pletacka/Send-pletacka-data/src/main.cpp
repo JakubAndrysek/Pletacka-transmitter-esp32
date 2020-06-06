@@ -5,13 +5,15 @@
 #include "Optocoupler.hpp"
 #include "credentials.h"
 #include "time.h"
+#include "BasicOTA.hpp"
+
 
 
 
 void program()
 {
-  const String SENSOR_NAME1 = "Pletacka1";
-  const String SENSOR_NAME2 = "Pletacka2";
+  const String SENSOR_NAME1 = "Pletacka12";
+  const String SENSOR_NAME2 = "Pletacka11";
 
   const char* ntpServer = "pool.ntp.org";
   const long  gmtOffset_sec = 3600;
@@ -73,7 +75,9 @@ void program()
   Optocoupler pl2Fin(PL2_FINISHED);
   Optocoupler pl2Stop(PL2_STOP);
 
-  NetteApi addEvent(""); //http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event
+  BasicOTA OTA;
+
+  NetteApi addEvent("http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event"); //http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event
 
 
   Serial.begin(115200);
@@ -91,6 +95,7 @@ void program()
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   struct tm tm;
   getLocalTime(&tm);
+  OTA.begin();
 
   Serial.println("Start");
 
@@ -99,6 +104,7 @@ void program()
 
   while (1)
   {
+    OTA.handle();
     getLocalTime(&tm);
     
     pletac1.Fin = pl1Fin.state();
@@ -110,7 +116,7 @@ void program()
     // pl2Fin.printState();
     // pl2Stop.printState();
     // tm.tm_hour
-    // Serial.printf("Time: %d:%d:%d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    // Serial.printf("Time: %d:%d:%d%\r", tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     if(tm.tm_hour == 23 && tm.tm_min == 59 && tm.tm_sec == 0)
     {
