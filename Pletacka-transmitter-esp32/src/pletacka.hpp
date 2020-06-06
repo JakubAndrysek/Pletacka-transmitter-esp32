@@ -30,7 +30,8 @@ class pletacka
 {
 private:
     pletackaConfig cfg;
-    pletacka_wifi wifi;
+    // pletacka_wifi wifi;
+
 
     
 public:
@@ -39,6 +40,7 @@ public:
     void config(const pletackaConfig& config);
 };
 
-pletacka pletac;
+extern pletacka pletac;
+
 
 

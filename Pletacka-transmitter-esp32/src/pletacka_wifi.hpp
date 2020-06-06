@@ -1,4 +1,8 @@
+#pragma once
+
 #include <Arduino.h>
+#include "pletacka.hpp"
+#include <WiFi.h>
 
 class pletacka_wifi
 {
@@ -25,7 +29,7 @@ private:
 public:
     pletacka_wifi();
     ~pletacka_wifi();
-    void init(const pletackaConfig& config);
+    void init(pletackaConfig &config);
     void configConnection();
     void connectWifi();
     void startAP();
