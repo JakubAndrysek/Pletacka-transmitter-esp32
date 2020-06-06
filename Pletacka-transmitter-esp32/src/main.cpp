@@ -1,9 +1,12 @@
 #include <Arduino.h>
 #include "pletacka.hpp"
+#include "BasicOTA.hpp"
 
 void mainPrograme()
 {
 	//Main setup
+
+	BasicOTA ota;
 	pletackaConfig config;
 	delay(2000);
 
@@ -18,7 +21,9 @@ void mainPrograme()
 	config.remoteDataOn = true;
 	config.remoteDebugOn = true;
 	config.serialDebugOn = true;
+	
 	pletac.config(config);
+	ota.begin();
 	
 	
 	pletac.println("println");
@@ -27,8 +32,9 @@ void mainPrograme()
 	//Main loop
 	while (true)
 	{
-		pletac.debugln(String(millis()/1000));
-		delay(1000);
+		ota.handle();
+		// pletac.debugln(String(millis()/1000));
+		// delay(1000);
 	}
 	
 	
