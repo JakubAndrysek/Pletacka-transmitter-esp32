@@ -23,6 +23,7 @@ void mainPrograme()
 	config.serialDebugOn = true;
 	
 	pletac.config(config);
+	
 	ota.begin();
 	
 	

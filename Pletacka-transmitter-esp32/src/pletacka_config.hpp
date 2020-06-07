@@ -14,9 +14,10 @@ struct pletackaConfig
 		, apName("")
 		, apPassword("")
 		, apChanel(1) 
+		, serialDataOn(true)
+		, serialDebugOn(false)
 		, remoteDataOn(false)
-		, remoteDebugOn(false)
-		, serialDebugOn(false) {
+		, remoteDebugOn(false) {
 
 	}
 
@@ -29,8 +30,10 @@ struct pletackaConfig
 	String apName;      //AP name
 	String apPassword;  //AP password
 	int apChanel;       //AP chanel
-	bool remoteDataOn;	//Send data into Sarial ana TCP Data
-	bool remoteDebugOn; //Startup into debug mode - TCP Debug
+	bool serialDataOn; 	//Enable serial comunication - default on
 	bool serialDebugOn;	//Startup into debug mode - Serial Debug
+	bool remoteDataOn;	//Enable remote "serial" comunicaton - proxy
+	bool remoteDebugOn; //Startup into debug mode - Proxy Debug
+	
 	
 };

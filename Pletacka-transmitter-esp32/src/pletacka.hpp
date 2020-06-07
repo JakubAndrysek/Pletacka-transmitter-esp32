@@ -5,6 +5,7 @@
 #include "pletacka_config.hpp"
 #include "pletacka_wifi.hpp"
 #include "pletacka_debug.hpp"
+#include "pletacka_eeprom.hpp"
 
 class pletacka
 {
@@ -12,6 +13,7 @@ private:
 	pletackaConfig cfg;
 	pletacka_wifi pWifi;
 	pletacka_debug pDebug;
+	pletacka_eeprom pEeprom;
 	
 
 

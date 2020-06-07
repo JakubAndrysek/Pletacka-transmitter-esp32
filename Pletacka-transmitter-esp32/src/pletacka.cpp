@@ -15,7 +15,8 @@ void pletacka::config(const pletackaConfig config)
     Serial.begin(115200);
     Serial.println("Sensor "+cfg.sensorName+ " is configuring");
     pWifi.init(config);
-    pDebug.init(config);    
+    pDebug.init(config); 
+	pEeprom.init(config);   
 }
 
 void pletacka::debug(String message)
@@ -31,7 +32,6 @@ void pletacka::debug(String message)
 	}
 	
 }
-
 
 void pletacka::debugln(String message)
 {
@@ -60,7 +60,6 @@ void pletacka::print(String message)
 	
 }
 
-
 void pletacka::println(String message)
 {
 	if(cfg.remoteDataOn)
@@ -70,6 +69,5 @@ void pletacka::println(String message)
 
 	Serial.println(message);
 }
-
 
 pletacka pletac;
