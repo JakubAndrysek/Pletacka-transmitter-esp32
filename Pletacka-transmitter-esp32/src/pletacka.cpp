@@ -13,10 +13,10 @@ void pletacka::config(const pletackaConfig config)
 {
     cfg = config;
     Serial.begin(115200);
-    Serial.println("Sensor "+cfg.sensorName+ " is configuring");
     pWifi.init(config);
     pDebug.init(config); 
-	pEeprom.init(config);   
+	pEeprom.init(config);
+	pletac.println("Sensor "+cfg.sensorName+ " is configured");   
 }
 
 void pletacka::debug(String message)
@@ -67,7 +67,11 @@ void pletacka::println(String message)
 		pDebug.Data.println(message);
 	}
 
-	Serial.println(message);
+	if(cfg.serialDataOn)
+	{
+		Serial.println(message);
+	}
+	
 }
 
 pletacka pletac;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "pletacka_config.hpp"
 
 
 class pletacka_eeprom
