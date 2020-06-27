@@ -1,13 +1,13 @@
-#include "pletacka_eeprom.hpp"
-#include "pletacka.hpp"
+#include "Pletacka_eeprom.hpp"
+#include "Pletacka.hpp"
 
-#include <EEPROM.h>
 
-void pletacka_eeprom::init(pletackaConfig config)
+
+void Pletacka_eeprom::init(pletackaConfig config)
 {
     if (!EEPROM.begin(eepromCfg.eepromSize))
     {
-        pletac.println("Dailed to initialise EEPROM");
+        pletacka.println("Dailed to initialise EEPROM");
         delay(500);
     }
 }

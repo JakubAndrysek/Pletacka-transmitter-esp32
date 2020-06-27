@@ -17,7 +17,11 @@ struct pletackaConfig
 		, serialDataOn(true)
 		, serialDebugOn(false)
 		, remoteDataOn(false)
-		, remoteDebugOn(false) {
+		, remoteDebugOn(false)
+		, debugIP("192.168.0.111")
+		, debugPort(12345)
+		, dataPort(12346)
+		{
 
 	}
 
@@ -34,6 +38,9 @@ struct pletackaConfig
 	bool serialDebugOn;	//Startup into debug mode - Serial Debug
 	bool remoteDataOn;	//Enable remote "serial" comunicaton - proxy
 	bool remoteDebugOn; //Startup into debug mode - Proxy Debug
+	String debugIP;		//IP adress of your PC with Lorris
+	int debugPort;		//Proxy debug port
+	int dataPort;		//Proxy data port
 	
 	
 };

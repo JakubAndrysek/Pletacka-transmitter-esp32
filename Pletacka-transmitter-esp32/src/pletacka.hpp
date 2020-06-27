@@ -2,25 +2,25 @@
 
 #include <Arduino.h>
 
-#include "pletacka_config.hpp"
-#include "pletacka_wifi.hpp"
-#include "pletacka_debug.hpp"
-#include "pletacka_eeprom.hpp"
+#include "Pletacka_config.hpp"
+#include "Pletacka_wifi.hpp"
+#include "Pletacka_debug.hpp"
+#include "Pletacka_eeprom.hpp"
 
-class pletacka
+class Pletacka
 {
 private:
 	pletackaConfig cfg;
-	pletacka_wifi pWifi;
-	pletacka_debug pDebug;
-	pletacka_eeprom pEeprom;
+	Pletacka_wifi pletacka_wifi;
+	Pletacka_debug pletacka_debug;
+	Pletacka_eeprom pletacka_eeprom;
 	
 
 
 
 public:
-	pletacka();
-	~pletacka();
+	Pletacka();
+	~Pletacka();
 	void config(const pletackaConfig config);
 	void debug(String message);
 	void debugln(String message);
@@ -29,7 +29,7 @@ public:
 	
 };
 
-extern pletacka pletac;
+extern Pletacka pletacka;
 
 
 

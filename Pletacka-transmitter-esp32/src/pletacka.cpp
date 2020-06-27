@@ -1,77 +1,74 @@
-#include "pletacka.hpp"
+#include "Pletacka.hpp"
 
-pletacka::pletacka()
+Pletacka::Pletacka()
 {
-    Serial.begin(115200);
+	Serial.begin(115200);
 }
 
-pletacka::~pletacka()
+Pletacka::~Pletacka()
 {
 }
 
-void pletacka::config(const pletackaConfig config)
+void Pletacka::config(const pletackaConfig config)
 {
-    cfg = config;
-    Serial.begin(115200);
-    pWifi.init(config);
-    pDebug.init(config); 
-	pEeprom.init(config);
-	pletac.println("Sensor "+cfg.sensorName+ " is configured");   
+	cfg = config;
+	Serial.begin(115200);
+	pletacka_wifi.init(config);
+	pletacka_debug.init(config);
+	pletacka_eeprom.init(config);
+	pletacka.println("Sensor " + cfg.sensorName + " is configured");
 }
 
-void pletacka::debug(String message)
+void Pletacka::debug(String message)
 {
-	if(cfg.remoteDebugOn)
+	if (cfg.remoteDebugOn)
 	{
-		pDebug.Debug.print(message);
+		pletacka_debug.Debug.print(message);
 	}
 
-	if(cfg.serialDebugOn)
+	if (cfg.serialDebugOn)
 	{
 		Serial.print(message);
 	}
-	
 }
 
-void pletacka::debugln(String message)
+void Pletacka::debugln(String message)
 {
-	if(cfg.remoteDebugOn)
+	if (cfg.remoteDebugOn)
 	{
-		pDebug.Debug.println(message);
+		pletacka_debug.Debug.println(message);
 	}
 
-	if(cfg.serialDebugOn)
+	if (cfg.serialDebugOn)
 	{
 		Serial.println(message);
 	}
 }
 
-void pletacka::print(String message)
+void Pletacka::print(String message)
 {
-	if(cfg.remoteDataOn)
+	if (cfg.remoteDataOn)
 	{
-		pDebug.Data.print(message);
+		pletacka_debug.Data.print(message);
 	}
 
-	if(cfg.serialDebugOn)
+	if (cfg.serialDebugOn)
 	{
 		Serial.print(message);
 	}
-	
 }
 
-void pletacka::println(String message)
+void Pletacka::println(String message)
 {
-	if(cfg.remoteDataOn)
+	if (cfg.remoteDataOn)
 	{
-		pDebug.Data.println(message);
+		pletacka_debug.Data.println(message);
 	}
 
-	if(cfg.serialDataOn)
+	if (cfg.serialDataOn)
 	{
 		Serial.println(message);
 	}
-	
 }
 
-pletacka pletac;
+Pletacka pletacka;

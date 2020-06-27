@@ -1,17 +1,17 @@
-#include "pletacka_wifi.hpp"
-#include "pletacka.hpp"
+#include "Pletacka_wifi.hpp"
+#include "Pletacka.hpp"
 
 
-pletacka_wifi::pletacka_wifi()
+Pletacka_wifi::Pletacka_wifi()
 {
  
 }
 
-pletacka_wifi::~pletacka_wifi()
+Pletacka_wifi::~Pletacka_wifi()
 {
 }
 
-void pletacka_wifi::init(pletackaConfig config)
+void Pletacka_wifi::init(pletackaConfig config)
 {
     wifiCfg.wifiName = config.wifiName;
     wifiCfg.wifiPassword = config.wifiPassword;
@@ -23,7 +23,7 @@ void pletacka_wifi::init(pletackaConfig config)
     configConnection();
 }
 
-void pletacka_wifi::configConnection()
+void Pletacka_wifi::configConnection()
 {
     if(wifiCfg.wifiDefaulAp)
     {
@@ -37,22 +37,22 @@ void pletacka_wifi::configConnection()
 }
 
 
-void pletacka_wifi::connectWifi()
+void Pletacka_wifi::connectWifi()
 {
-    pletac.println("Connecting to " + wifiCfg.wifiName);
+    pletacka.println("Connecting to " + wifiCfg.wifiName);
     WiFi.begin(wifiCfg.wifiName.c_str(), wifiCfg.wifiPassword.c_str());
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        pletac.print(".");
+        pletacka.print(".");
     }
 
-    pletac.println("\nWiFi connected");
-    pletac.println("IP address: ");
-    pletac.println(String(WiFi.localIP()));
+    pletacka.println("\nWiFi connected");
+    pletacka.println("IP address: ");
+    pletacka.println(String(WiFi.localIP()));
 }
 
-void pletacka_wifi::startAP()
+void Pletacka_wifi::startAP()
 {
-    pletac.println("Starting **" + wifiCfg.apName + "** AP");
+    pletacka.println("Starting **" + wifiCfg.apName + "** AP");
     WiFi.softAP(wifiCfg.apName.c_str(), wifiCfg.apPassword.c_str(), wifiCfg.apChanel );
 }

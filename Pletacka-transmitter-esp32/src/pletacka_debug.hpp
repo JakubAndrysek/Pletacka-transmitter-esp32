@@ -6,24 +6,24 @@
 #include <WiFiClient.h>
 
 
-class pletacka_debug
+class Pletacka_debug
 {
 private:
     struct debugConfig
     {
         debugConfig()
-            : Debug_IPs("192.168.0.112")
-            , Debug_port(12345)
-            , Data_port(12346) {       
+            : debug_IP("192.168.0.111")
+            , debug_port(12345)
+            , data_port(12346) {       
         }
-        String Debug_IPs;    //IP adress of your PC with Lorris
-        int Debug_port;               //Proxy debug port
-        int Data_port;                //Proxy data port
+        String debug_IP;    //IP adress of your PC with Lorris
+        int debug_port;      //Proxy debug port
+        int data_port;       //Proxy data port
     };
 
     debugConfig debugCfg;
 
-    IPAddress Debug_IP;
+    IPAddress debug_ip;
 
 
 

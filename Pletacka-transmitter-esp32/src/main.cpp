@@ -13,22 +13,25 @@ void mainPrograme()
 	Serial.println("Start");
 	config.sensorName = "TestESP";
 	config.sensorNumber = 1;
-	config.wifiName = "WLOffice";
-	config.wifiPassword = "$BlueC6r&R06D";
+	config.wifiName = "Pletacka-IoT";
+	config.wifiPassword = "PletackaPlete";
 	config.apName = "Pletacka-ESP";
 	config.apPassword = "PletackaPlete";
 	config.wifiDefaulAp = false;
 	config.remoteDataOn = true;
 	config.remoteDebugOn = true;
 	config.serialDebugOn = true;
+	config.debugIP = "192.168.0.23";
+	config.debugPort = 12345;
+	config.dataPort = 12346;
 	
-	pletac.config(config);
+	pletacka.config(config);
 	
 	ota.begin();
 	
 	
-	pletac.println("println");
-	pletac.debugln("debugln");
+	pletacka.println("println");
+	pletacka.debugln("debugln");
 
 	//Main loop
 	while (true)
@@ -46,20 +49,6 @@ void mainPrograme()
 void setup() {
 	mainPrograme();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

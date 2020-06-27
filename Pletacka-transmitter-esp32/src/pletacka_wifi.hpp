@@ -4,7 +4,7 @@
 #include "pletacka_config.hpp"
 #include <WiFi.h>
 
-class pletacka_wifi
+class Pletacka_wifi
 {
 private:
     struct wifiConfig
@@ -31,8 +31,8 @@ private:
     wifiConfig wifiCfg;
     
 public:
-    pletacka_wifi();
-    ~pletacka_wifi();
+    Pletacka_wifi();
+    ~Pletacka_wifi();
     void init(pletackaConfig config);
     void configConnection();
     void connectWifi();

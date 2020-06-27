@@ -1,10 +1,10 @@
 #pragma once
 
 #include <Arduino.h>
-#include "pletacka_config.hpp"
+#include "Pletacka_config.hpp"
+#include <EEPROM.h>
 
-
-class pletacka_eeprom
+class Pletacka_eeprom : public EEPROMClass
 {
 private:
     struct eepromConfig
@@ -21,5 +21,4 @@ private:
 public:
     void init(pletackaConfig config);
 };
-
 
