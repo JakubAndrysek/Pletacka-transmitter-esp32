@@ -15,7 +15,8 @@ void Pletacka::config(const pletackaConfig config)
 	Serial.begin(115200);
 	pletacka_wifi.init(config);
 	pletacka_debug.init(config);
-	pletacka_eeprom.init(config);
+	pletacka_eeprom.begin(50);
+
 	pletacka.println("Sensor " + cfg.sensorName + " is configured");
 }
 

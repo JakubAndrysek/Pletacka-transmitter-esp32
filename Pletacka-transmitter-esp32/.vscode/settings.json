@@ -18,6 +18,10 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "cstddef": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp"
     }
 }

@@ -44,3 +44,13 @@ struct pletackaConfig
 	
 	
 };
+
+
+enum eepromConfig
+{
+	WIFI_NAME,
+	WIFI_PWD,
+
+};
+
+
