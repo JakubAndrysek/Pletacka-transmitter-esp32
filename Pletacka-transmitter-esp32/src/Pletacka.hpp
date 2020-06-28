@@ -7,6 +7,7 @@
 #include "Pletacka_debug.hpp"
 
 #include "EEPROM.h"
+#include <TFT_eSPI.h>
 
 class Pletacka
 {
@@ -15,6 +16,7 @@ private:
 	Pletacka_wifi pletacka_wifi;
 	Pletacka_debug pletacka_debug;
 	EEPROMClass pletacka_eeprom;
+	TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 
 	
 

@@ -1,14 +1,43 @@
+
+
+
+
+
+
+
+
+
 #include <Arduino.h>
 #include "pletacka.hpp"
 #include "BasicOTA.hpp"
+#include <SPI.h>
+// #include <TFT_eSPI.h>
+#include "WiFi.h"
+
+
+// #ifndef TFT_DISPOFF
+// #define TFT_DISPOFF 0x28
+// #endif
+
+// #ifndef TFT_SLPIN
+// #define TFT_SLPIN   0x10
+// #endif
+
+// #define ADC_EN          14
+// #define ADC_PIN         34
+// #define BUTTON_1        35
+// #define BUTTON_2        0 
+
+
 
 void mainPrograme()
 {
 	//Main setup
 
-	BasicOTA ota;
+	// BasicOTA ota;
 	pletackaConfig config;
-	delay(2000);
+	
+	// delay(2000);
 
 	Serial.println("Start");
 	config.sensorName = "TestESP";
@@ -27,35 +56,34 @@ void mainPrograme()
 	
 	pletacka.config(config);
 	
-	ota.begin();
+	// // ota.begin();
 	
 	
-	pletacka.println("println");
-	pletacka.debugln("debugln");
+	// pletacka.println("println");
+	// pletacka.debugln("debugln");
 
-	//Main loop
-	while (true)
-	{
-		ota.handle();
-		// pletac.debugln(String(millis()/1000));
-		// delay(1000);
-	}
+    // Serial.begin(115200);
+    // Serial.println("Start");
+
+
+	// //Main loop
+	// while (true)
+	// {
+	// 	// ota.handle();
+	// 	// pletac.debugln(String(millis()/1000));
+	// 	// delay(1000);
+	// }
 	
 	
 	
 }
+
 
 
 void setup() {
 	mainPrograme();
+	
 }
-
-
-
-
-
-
-
 
 
 
