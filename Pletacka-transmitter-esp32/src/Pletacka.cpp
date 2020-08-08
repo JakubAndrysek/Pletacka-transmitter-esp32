@@ -13,20 +13,20 @@ void Pletacka::config(const pletackaConfig config)
 {
 	cfg = config;
 	Serial.begin(115200);
-		tft.init();
-    tft.fontHeight(2);
-    tft.setRotation(3);
-    tft.fillScreen(TFT_BLACK);
-	
+
+	displayInit(config);
+	showId(2);
+	showTime();
 
 	pletacka_wifi.init(config);
 	pletacka_debug.init(config);
 	pletacka_eeprom.begin(50);
+
+	
 	
 
 
 	println("Sensor " + cfg.sensorName + " is configured");
-	tft.drawString("Configured", tft.width()/4, tft.height() / 2, 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
 void Pletacka::debug(String message)

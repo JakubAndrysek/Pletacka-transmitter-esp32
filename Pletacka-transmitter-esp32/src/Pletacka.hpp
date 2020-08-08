@@ -3,20 +3,23 @@
 #include <Arduino.h>
 
 #include "Pletacka_config.hpp"
+#include "Pletacka_display.hpp"
 #include "Pletacka_wifi.hpp"
 #include "Pletacka_debug.hpp"
 
-#include "EEPROM.h"
-#include <TFT_eSPI.h>
 
-class Pletacka
+#include "EEPROM.h"
+
+class Pletacka: public Pletacka_display
 {
 private:
 	pletackaConfig cfg;
+	// Pletacka_display pletacka_display;
 	Pletacka_wifi pletacka_wifi;
 	Pletacka_debug pletacka_debug;
 	EEPROMClass pletacka_eeprom;
-	TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
+	
+	
 
 	
 
