@@ -11,7 +11,7 @@ Pletacka_wifi::~Pletacka_wifi()
 {
 }
 
-void Pletacka_wifi::init(pletackaConfig config)
+void Pletacka_wifi::init(PletackaConfig config)
 {
     wifiCfg.wifiName = config.wifiName;
     wifiCfg.wifiPassword = config.wifiPassword;
@@ -58,11 +58,15 @@ void Pletacka_wifi::connectWifi()
         }
     }
 
-    pletacka.showMsg("Connected");
+    pletacka.showMsg("WIFI connected");
+    pletacka.hideError();
 
     pletacka.println("\nWiFi connected");
-    pletacka.println("IP address: ");
-    pletacka.println(String(WiFi.localIP()));
+    pletacka.print("IP address: ");
+    pletacka.print(String(WiFi.localIP()));
+    pletacka.print("    MAC address: ");
+    pletacka.println(String(WiFi.macAddress()));    
+    
 }
 
 void Pletacka_wifi::startAP()

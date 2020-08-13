@@ -3,7 +3,7 @@
 
 
 
-void Pletacka_display::displayInit(pletackaConfig config)
+void Pletacka_display::displayInit(PletackaConfig config)
 {
     tft.init();
     tft.fontHeight(2);
@@ -20,7 +20,7 @@ void Pletacka_display::showId(int id)
 
 void Pletacka_display::showTime()
 {
-    tft.fillRoundRect(30, 0,  70, 24, radius, bcgColour);
+    tft.fillRoundRect(30, 0,  70, 24, radius, blockColour);
     tft.drawString("12:30:47", 35, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
@@ -31,10 +31,15 @@ void Pletacka_display::showError(String msg, int colour )
     // int x = TFT_RED
 }
 
+void Pletacka_display::hideError()
+{
+    tft.fillRoundRect(0, tft.height()- 15,  tft.width(), 15, radius, bcgColour);
+}
+
 
 
 void Pletacka_display::showMsg(String msg)
 {
-    tft.fillRoundRect(105, 0,  135, 24, radius, bcgColour);
+    tft.fillRoundRect(105, 0,  135, 24, radius, blockColour);
     tft.drawString(msg, 108, 5, 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }

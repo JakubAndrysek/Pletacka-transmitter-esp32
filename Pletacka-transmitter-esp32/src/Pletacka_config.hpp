@@ -2,9 +2,9 @@
 
 #include <Arduino.h>
 
-struct pletackaConfig
+struct PletackaConfig
 {
-	pletackaConfig()
+	PletackaConfig()
 		: sensorName("")
 		, sensorNumber(1)
 		, wifiName("")
@@ -21,6 +21,9 @@ struct pletackaConfig
 		, debugIP("192.168.0.111")
 		, debugPort(12345)
 		, dataPort(12346)
+
+		, pinFinish(26)
+		, pinStop(27)
 		{
 
 	}
@@ -41,9 +44,13 @@ struct pletackaConfig
 	String debugIP;		//IP adress of your PC with Lorris
 	int debugPort;		//Proxy debug port
 	int dataPort;		//Proxy data port
+
+	int pinFinish;		//
+	int pinStop;		//
 	
 	
 };
+
 
 
 enum eepromConfig

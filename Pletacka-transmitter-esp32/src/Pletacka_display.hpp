@@ -9,18 +9,21 @@
 class Pletacka_display
 {
     private:
-        int bcgColour = TFT_BLUE;
+        int bcgColour = TFT_BLACK;
+        int blockColour = TFT_BLUE;
         int textColour = TFT_WHITE;
+        int errorColour = TFT_RED;
         int radius = 4;
         
         
 
     public:
         TFT_eSPI tft = TFT_eSPI(135, 240);
-        void displayInit(pletackaConfig config);
+        void displayInit(PletackaConfig config);
         void showId(int id);
         void showTime();
         void showError(String msg, int colour = TFT_RED);
+        void hideError();
         void showMsg(String msg);
         
 };

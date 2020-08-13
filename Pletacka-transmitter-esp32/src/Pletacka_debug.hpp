@@ -14,11 +14,15 @@ private:
         debugConfig()
             : debug_IP("192.168.0.111")
             , debug_port(12345)
-            , data_port(12346) {       
+            , data_port(12346)
+            , remoteDebugOn(false)
+            , remoteDataOn(false) {       
         }
         String debug_IP;    //IP adress of your PC with Lorris
         int debug_port;      //Proxy debug port
         int data_port;       //Proxy data port
+        bool remoteDebugOn;
+        bool remoteDataOn;
     };
 
     debugConfig debugCfg;
@@ -31,7 +35,7 @@ private:
 public:
 	WiFiClient Debug;
     WiFiClient Data;
-    void init(pletackaConfig config);
+    void init(PletackaConfig config);
 	// void send(String message);
 	
 };

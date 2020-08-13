@@ -24,7 +24,8 @@ private:
 
 public:
 
-    void init(pletackaConfig config);
+    void init(PletackaConfig config);
+    String getStatus();
     
 };
 
