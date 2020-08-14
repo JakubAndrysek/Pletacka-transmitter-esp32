@@ -16,7 +16,6 @@ void Pletacka::config(const PletackaConfig config)
 
 	displayInit(config);
 	showId(2);
-	showTime();
 
 	pletacka_wifi.init(config);
 	if(config.remoteDataOn || config.remoteDebugOn)
@@ -28,6 +27,7 @@ void Pletacka::config(const PletackaConfig config)
 	pletacka_status.init(config);
 
 	delay(100); //required for succes behavour
+	timeInit();
 
 	println("Sensor " + cfg.sensorName + " is configured");
 	showMsg("Configured");
@@ -45,13 +45,15 @@ String Pletacka::isChange()
 	static String lastStatus = "";
 	String nowStatus = pletacka_status.getStatus();
 
+	// Serial.println("NowS:"+nowStatus);
+
 	if(nowStatus != lastStatus)
 	{
 		lastStatus = nowStatus;
 		return nowStatus;
 	}
 
-	return "false";
+	return "";
 }
 
 

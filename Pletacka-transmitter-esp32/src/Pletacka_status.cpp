@@ -29,24 +29,24 @@ String Pletacka_status::getStatus()
 	switch (Spletac1_run)
 	{
 		case ON:
-			pletacka.debugln("xON");
+			// pletacka.debugln("xON");
 			Spletac1_run = DEF;
 			output = "ON";
 			break;
 		case STOP:
-			pletacka.debugln("xSTOP");
+			// pletacka.debugln("xSTOP");
 			output = "STOP";
 
 			if (opto.stop!=SSTOP) //END STOP
 			{
-				pletacka.debugln("xREWORK");
+				// pletacka.debugln("xREWORK");
 				Spletac1_run = DEF;
 				output = "REWORK";
 			}
 			break;
 		
 		default:
-			pletacka.debugln("xDEF");
+			// pletacka.debugln("xDEF");
 
 			if(opto.stop==SSTOP)
 			{
@@ -65,6 +65,7 @@ String Pletacka_status::getStatus()
 			}
 			break;
 	}
+	// Serial.println("INTER:" + output);
 
 	return output;    
 

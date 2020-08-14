@@ -30,7 +30,9 @@ void mainPrograme()
 
 	BasicOTA ota;
 	PletackaConfig config;
-	ArduinoMetronome statusMetronome(1000);
+	ArduinoMetronome statusMetronome(10);
+	ArduinoMetronome customMetronome(1500);
+	ArduinoMetronome timeMetronome(1000);
 
 	
 	
@@ -65,14 +67,6 @@ void mainPrograme()
 	pletacka.println("println");
 	pletacka.debugln("debugln");
 
-    
-    Serial.println("Start");
-	pletacka.debug("DEBUG");
-	Serial.println("SNL");
-	pletacka.debugln("DEBUGLN");
-	pletacka.debugln("DEBUGLN2");
-	Serial.println("SNL2");
-	
 
 
 	//Main loop
@@ -82,7 +76,18 @@ void mainPrograme()
 
 		if(statusMetronome.loopMs())
 		{
-			pletacka.println(pletacka.isChange());
+			String status = "";
+			if((status = pletacka.isChange())!= "")
+			{
+				pletacka.println("Status: " + status);
+				pletacka.showStatus(status);
+			}
+			
+		}
+
+		if(timeMetronome.loopMs())
+		{			
+			pletacka.showTime();
 		}
 		
 	}
