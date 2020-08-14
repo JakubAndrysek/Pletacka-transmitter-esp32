@@ -20,8 +20,6 @@ private:
 	Pletacka_debug pletacka_debug;
 	Pletacka_status pletacka_status;
 	EEPROMClass pletacka_eeprom;
-	
-
 
 
 public:

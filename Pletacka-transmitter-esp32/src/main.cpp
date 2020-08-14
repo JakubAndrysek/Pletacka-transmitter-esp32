@@ -1,3 +1,14 @@
+/**
+ * @file main.cpp
+ * @author Jakub Andrýsek (email@kubaandrysek.cz)
+ * @brief 
+ * @version 0.1
+ * @date 2020-08-14
+ * 
+ * @copyright Copyright (c) 2020 Jakub Andrýsek
+ * 
+ * @link https://kubaandrysek.cz
+ */
 #include <Arduino.h>
 #include "pletacka.hpp"
 #include "BasicOTA.hpp"

@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <Arduino.h>
@@ -23,6 +24,8 @@ private:
         int data_port;       //Proxy data port
         bool remoteDebugOn;
         bool remoteDataOn;
+        bool serialDebugOn;
+        bool serialDataOn;
     };
 
     debugConfig debugCfg;
@@ -37,6 +40,10 @@ public:
     WiFiClient Data;
     void init(PletackaConfig config);
 	// void send(String message);
+    void debug(String message, String prefix = "D:");
+	void debugln(String message, String prefix = "D:");
+	void print(String message, String prefix = "P:");
+	void println(String message, String prefix = "P:");
 	
 };
 

@@ -1,7 +1,10 @@
 #include "Pletacka_wifi.hpp"
 #include "Pletacka.hpp"
 
-
+/**
+ * @brief Construct a new Pletacka_wifi::Pletacka_wifi object
+ * 
+ */
 Pletacka_wifi::Pletacka_wifi()
 {
  
@@ -75,3 +78,6 @@ void Pletacka_wifi::startAP()
     pletacka.println("Starting **" + wifiCfg.apName + "** AP");
     WiFi.softAP(wifiCfg.apName.c_str(), wifiCfg.apPassword.c_str(), wifiCfg.apChanel );
 }
+
+
+
