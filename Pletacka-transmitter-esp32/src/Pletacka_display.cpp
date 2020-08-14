@@ -1,6 +1,6 @@
 #include "Pletacka_display.hpp"
 #include "Pletacka.hpp"
-
+#include "WiFi.h"
 
 String tim(int time)
 {
@@ -13,45 +13,62 @@ String tim(int time)
 
 void Pletacka_display::displayInit(PletackaConfig config)
 {
+    pletackaNumber = config.sensorNumber;
+    
     tft.init();
     tft.fontHeight(2);
     tft.setRotation(3);
     tft.fillScreen(TFT_BLACK);
     tft.setTextColor(textColour);
 
-    // const char* ntpServer = "pool.ntp.org";
-    // const long  gmtOffset_sec = 3600;
-    // const int   daylightOffset_sec = 3600; 
-
-    // configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);       
-    // getLocalTime(&tm);
+    showId();
 }
 
 void Pletacka_display::timeInit()
 {
-    const char* ntpServer = "pool.ntp.org";
-    const long  gmtOffset_sec = 3600;
-    const int   daylightOffset_sec = 3600; 
+    if(WiFi.status() == WL_CONNECTED)
+    {
+        const char* ntpServer = "pool.ntp.org";
+        const long  gmtOffset_sec = 3600;
+        const int   daylightOffset_sec = 3600; 
 
-    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);       
-    getLocalTime(&tm);
+        configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);       
+        getLocalTime(&tm);
+    }
+    else
+    {
+        showError("Time ERROR");
+        Serial.println("Time ERROR");
+    }
+    
 
 }
 
-void Pletacka_display::showId(int id)
+void Pletacka_display::showId()
 {
     tft.fillCircle(12, 12,  12, TFT_DARKGREEN);
-    tft.drawCentreString(String(id), 12, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
+    tft.drawCentreString(String(pletackaNumber), 12, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
 void Pletacka_display::showTime()
 {
-    getLocalTime(&tm);
     tft.fillRoundRect(30, 0,  70, 24, radius, blockColour);
 
-    String time = tim(tm.tm_hour)+":"+tim(tm.tm_min)+":"+tim(tm.tm_sec);
-    tft.drawString(time, 35, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
-    // Serial.printf("Time: %d:%d:%d%\r", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    if(WiFi.status() == WL_CONNECTED)
+    {
+        getLocalTime(&tm);
+        
+
+        String time = tim(tm.tm_hour)+":"+tim(tm.tm_min)+":"+tim(tm.tm_sec);
+        tft.drawString(time, 35, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
+        Serial.printf("Time: %d:%d:%d%\r", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    }
+    else
+    {
+        tft.drawString("ERROR", 35, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
+        Serial.println("Time ERROR");
+    }
+
 }
 
 void Pletacka_display::showError(String msg, int colour )
@@ -71,7 +88,7 @@ void Pletacka_display::hideError()
 void Pletacka_display::showMsg(String msg)
 {
     tft.fillRoundRect(105, 0,  135, 24, radius, blockColour);
-    tft.drawString(msg, 108, 5, 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
+    tft.drawString(msg, 110, 5, 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
 void Pletacka_display::showStatus(String status)
@@ -79,18 +96,27 @@ void Pletacka_display::showStatus(String status)
     int bcgCol;
 
     if(status == "ON")
+    {
         bcgCol = TFT_BLUE;
+    }
     else if (status == "STOP")
+    {
         bcgCol = TFT_RED;
+    }
     else if (status == "REWORK")
+    {
         bcgCol = TFT_YELLOW;
-    else(status == "FINISH");
+    }
+    else
+    {
         bcgCol = TFT_DARKGREEN;
+    }
+
 
     tft.fillRoundRect(40, 50,  160, 45, radius, bcgCol);
 
     tft.setTextColor(TFT_WHITE);
-    tft.drawCentreString(status, 120, 60, 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
+    tft.drawCentreString(status, 120, 62, 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
 
 
 }

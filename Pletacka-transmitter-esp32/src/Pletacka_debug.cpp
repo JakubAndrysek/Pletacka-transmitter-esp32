@@ -35,6 +35,7 @@ void Pletacka_debug::init(PletackaConfig config)
                 Serial.println("Can not connect to the debug server");
                 delay(500);
             }
+            
         }
 
         if(debugCfg.remoteDataOn)
@@ -50,9 +51,9 @@ void Pletacka_debug::init(PletackaConfig config)
     {
         Serial.println("ESP is not conested to the WiFi");
     }
-    Debug.println("Connected succesfly to DEBUG\n");
-    Data.println("Connected succesfly to DATA\n");
-    Serial.println("Connected succesfly to DEBUG and DATA\n");  
+    // Debug.println("Connected succesfly to DEBUG\n");
+    // Data.println("Connected succesfly to DATA\n");
+    // Serial.println("Connected succesfly to DEBUG and DATA\n");  
 
 }
 

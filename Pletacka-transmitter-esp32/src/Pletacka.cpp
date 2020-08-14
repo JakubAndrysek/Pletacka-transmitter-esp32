@@ -15,22 +15,26 @@ void Pletacka::config(const PletackaConfig config)
 	Serial.begin(115200);
 
 	displayInit(config);
-	showId(2);
+
+	pinMode(BUTTON_1, INPUT);
+	
+	
 
 	pletacka_wifi.init(config);
-	if(config.remoteDataOn || config.remoteDebugOn)
+	if(config.remoteDataOn || config.remoteDebugOn || !digitalRead(BUTTON_1))
 	{
-		pletacka_debug.init(config);
+			println("STARTING DEBUG MODE");
+			showError("DEBUG MODE", TFT_ORANGE);
+			pletacka_debug.init(config);
 	}
 	
 	pletacka_eeprom.begin(50);
 	pletacka_status.init(config);
 
-	delay(100); //required for succes behavour
+	delay(200); //required for succes behavour
 	timeInit();
 
 	println("Sensor " + cfg.sensorName + " is configured");
-	showMsg("Configured");
 	
 	
 }

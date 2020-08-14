@@ -53,18 +53,16 @@ void Pletacka_wifi::connectWifi()
         counter++;
         delay(500);
         pletacka.print(".");
-        pletacka.showMsg("WIFI: "+wifiCfg.wifiName); 
+        pletacka.showMsg("Connecting WiFi"); 
 
         if(counter> 10)
         {
-            pletacka.showError("Not connected to WIFI");            
+            pletacka.showError("Not connected to WiFi");            
         }
     }
 
-    pletacka.debugln("wifiwifiwifi");
-
     
-    pletacka.showMsg("WIFI connected");
+    pletacka.showMsg("WiFi " + wifiCfg.wifiName);
     pletacka.hideError();
 
     pletacka.println("\nWiFi connected");

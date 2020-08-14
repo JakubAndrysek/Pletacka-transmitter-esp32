@@ -10,17 +10,14 @@
  * @link https://kubaandrysek.cz
  */
 #include <Arduino.h>
-#include "pletacka.hpp"
+#include "Pletacka.hpp"
 #include "BasicOTA.hpp"
 #include <SPI.h>
 #include "WiFi.h"
 #include "ArduinoMetronome.hpp"
 
 
-#define ADC_EN          14
-#define ADC_PIN         34
-#define BUTTON_1        35
-#define BUTTON_2        0 
+
 
 
 
@@ -40,14 +37,14 @@ void mainPrograme()
 
 	Serial.println("Start");
 	config.sensorName = "TestESP";
-	config.sensorNumber = 1;
+	config.sensorNumber = 23;
 	config.wifiName = "Pletacka-IoT";
 	config.wifiPassword = "PletackaPlete";
 	config.wifiDefaulAp = false;
 	config.apName = "AP-Pletacka-ESP";
 	config.apPassword = "PletackaPlete";
-	config.remoteDataOn = true;
-	config.remoteDebugOn = true;
+	config.remoteDataOn = false;
+	config.remoteDebugOn = false;
 	config.serialDebugOn = true;
 	config.debugIP = "192.168.0.113";
 	config.debugPort = 12346;
