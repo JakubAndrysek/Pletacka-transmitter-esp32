@@ -1,6 +1,5 @@
 #include "Pletacka_status.hpp"
-#include "pletacka.hpp"
-
+#include "Pletacka.hpp"
 
 
 void Pletacka_status::init(PletackaConfig config)
@@ -8,40 +7,46 @@ void Pletacka_status::init(PletackaConfig config)
 	optoFinish.setPin(config.pinFinish);
 	optoStop.setPin(config.pinStop);
 
-	opto.finish = optoFinish.state();
+	opto.finish = !optoFinish.state();  //Change
 	opto.stop = optoStop.state();
+
 }
 
+/**
+ * @brief Get pletacka status
+ * 
+ * @return String state
+ */
 String Pletacka_status::getStatus()
 {
 	static int Spletac1_run = ON;
 
 	String output = "";
 	
-	opto.finish = optoFinish.state();
+	opto.finish = !optoFinish.state();	//Change
 	opto.stop = optoStop.state();
 
 	switch (Spletac1_run)
 	{
 		case ON:
-			//pletacka.debugln("ON", "St:");
+			pletacka.debugln("xON");
 			Spletac1_run = DEF;
 			output = "ON";
 			break;
 		case STOP:
-			//pletacka.debugln("STOP", "St:");
+			pletacka.debugln("xSTOP");
 			output = "STOP";
 
 			if (opto.stop!=SSTOP) //END STOP
 			{
-				//pletacka.debugln("REWORK", "St:");
+				pletacka.debugln("xREWORK");
 				Spletac1_run = DEF;
 				output = "REWORK";
 			}
 			break;
 		
 		default:
-			//pletacka.debugln("DEF", "St:");
+			pletacka.debugln("xDEF");
 
 			if(opto.stop==SSTOP)
 			{
@@ -56,11 +61,12 @@ String Pletacka_status::getStatus()
 				else
 				{
 					output = "";
-				}
-				
+				}				
 			}
 			break;
-	}    
+	}
+
+	return output;    
 
 
 }

@@ -57,10 +57,13 @@ void Pletacka_wifi::connectWifi()
 
         if(counter> 10)
         {
-            pletacka.showError("Not connected to WIFI");
+            pletacka.showError("Not connected to WIFI");            
         }
     }
 
+    pletacka.debugln("wifiwifiwifi");
+
+    
     pletacka.showMsg("WIFI connected");
     pletacka.hideError();
 

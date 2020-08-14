@@ -30,7 +30,7 @@ void mainPrograme()
 
 	BasicOTA ota;
 	PletackaConfig config;
-	ArduinoMetronome statusMetronome(10);
+	ArduinoMetronome statusMetronome(1000);
 
 	
 	
@@ -82,7 +82,7 @@ void mainPrograme()
 
 		if(statusMetronome.loopMs())
 		{
-			/*pletacka.println*/(pletacka.isChange());
+			pletacka.println(pletacka.isChange());
 		}
 		
 	}

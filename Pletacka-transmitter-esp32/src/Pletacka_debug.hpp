@@ -40,10 +40,10 @@ public:
     WiFiClient Data;
     void init(PletackaConfig config);
 	// void send(String message);
-    void debug(String message, String prefix = "D:");
-	void debugln(String message, String prefix = "D:");
-	void print(String message, String prefix = "P:");
-	void println(String message, String prefix = "P:");
+    // void debug(String message, String prefix = "D:");
+	// void debugln(String message, String prefix = "D:");
+	// void print(String message, String prefix = "P:");
+	// void println(String message, String prefix = "P:");
 	
 };
 

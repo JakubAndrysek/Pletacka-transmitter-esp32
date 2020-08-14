@@ -35,10 +35,23 @@ void Pletacka::config(const PletackaConfig config)
 	
 }
 
-
+/**
+ * @brief Is pletacka status changed
+ * 
+ * @return String status or false
+ */
 String Pletacka::isChange()
 {
-	return pletacka_status.getStatus();
+	static String lastStatus = "";
+	String nowStatus = pletacka_status.getStatus();
+
+	if(nowStatus != lastStatus)
+	{
+		lastStatus = nowStatus;
+		return nowStatus;
+	}
+
+	return "false";
 }
 
 

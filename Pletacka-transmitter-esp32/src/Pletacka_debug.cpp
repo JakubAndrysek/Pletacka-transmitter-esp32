@@ -62,58 +62,56 @@ void Pletacka_debug::init(PletackaConfig config)
 
 // }
 
-void Pletacka_debug::debug(String message, String prefix)
-{
-	if (debugCfg.remoteDebugOn)
-	{
-		Debug.print(prefix + message);
-	}
+// void Pletacka_debug::debug(String message, String prefix)
+// {
+// 	if (debugCfg.remoteDebugOn)
+// 	{
+// 		Debug.print(prefix + message);
+// 	}
 
-	if (debugCfg.serialDebugOn)
-	{
-		Serial.print(prefix + message);
-	}
-}
+// 	if (debugCfg.serialDebugOn)
+// 	{
+// 		Serial.print(prefix + message);
+// 	}
+// }
 
-void Pletacka_debug::debugln(String message, String prefix)
-{
-	if (debugCfg.remoteDebugOn)
-	{
-		Debug.println(prefix + message);
-	}
+// void Pletacka_debug::debugln(String message, String prefix)
+// {
+// 	if (debugCfg.remoteDebugOn)
+// 	{
+// 		Debug.println(prefix + message);
+// 	}
 
-	if (debugCfg.serialDebugOn)
-	{
-		Serial.println(prefix + message);
-	}
-}
+// 	if (debugCfg.serialDebugOn)
+// 	{
+// 		Serial.println(prefix + message);
+// 	}
+// }
 
-void Pletacka_debug::print(String message, String prefix)
-{
-	if (debugCfg.remoteDataOn)
-	{
-		Data.print(prefix + message);
-	}
+// void Pletacka_debug::print(String message, String prefix)
+// {
+// 	if (debugCfg.remoteDataOn)
+// 	{
+// 		Data.print(prefix + message);
+// 	}
 
-	if (debugCfg.serialDebugOn)
-	{
-		Serial.print(prefix + message);
-	}
-}
+// 	if (debugCfg.serialDebugOn)
+// 	{
+// 		Serial.print(prefix + message);
+// 	}
+// }
 
-void Pletacka_debug::println(String message, String prefix)
-{
-	if (debugCfg.remoteDataOn)
-	{
-		Data.println(prefix + message);
-	}
+// void Pletacka_debug::println(String message, String prefix)
+// {
+// 	if (debugCfg.remoteDataOn)
+// 	{
+// 		Data.println(prefix + message);
+// 	}
 
-	if (debugCfg.serialDataOn)
-	{
-		Serial.println(prefix + message);
-	}
-}
-
-
+// 	if (debugCfg.serialDataOn)
+// 	{
+// 		Serial.println(prefix + message);
+// 	}
+// }
 
 
