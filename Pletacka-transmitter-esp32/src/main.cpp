@@ -1,26 +1,10 @@
-
-
-
-
-
-
-
-
-
 #include <Arduino.h>
 #include "pletacka.hpp"
 #include "BasicOTA.hpp"
 #include <SPI.h>
 #include "WiFi.h"
+#include "ArduinoMetronome.hpp"
 
-
-// #ifndef TFT_DISPOFF
-// #define TFT_DISPOFF 0x28
-// #endif
-
-// #ifndef TFT_SLPIN
-// #define TFT_SLPIN   0x10
-// #endif
 
 #define ADC_EN          14
 #define ADC_PIN         34
@@ -34,7 +18,10 @@ void mainPrograme()
 	//Main setup
 
 	BasicOTA ota;
-	PletackaConfig config;	
+	PletackaConfig config;
+	ArduinoMetronome statusMetronome(10);
+
+	
 	
 	// delay(2000);
 
@@ -43,20 +30,22 @@ void mainPrograme()
 	config.sensorNumber = 1;
 	config.wifiName = "Pletacka-IoT";
 	config.wifiPassword = "PletackaPlete";
-	config.apName = "Pletacka-ESP";
-	config.apPassword = "PletackaPlete";
 	config.wifiDefaulAp = false;
+	config.apName = "AP-Pletacka-ESP";
+	config.apPassword = "PletackaPlete";
 	config.remoteDataOn = true;
 	config.remoteDebugOn = true;
 	config.serialDebugOn = true;
 	config.debugIP = "192.168.0.113";
-	config.debugPort = 12345;
-	config.dataPort = 12346;
+	config.debugPort = 12346;
+	config.dataPort = 12345;
 
 	config.pinFinish = 26;
 	config.pinStop = 27;
 	
 	pletacka.config(config);
+
+	
 
 	
 	ota.begin();
@@ -65,17 +54,26 @@ void mainPrograme()
 	pletacka.println("println");
 	pletacka.debugln("debugln");
 
-    Serial.begin(115200);
+    
     Serial.println("Start");
+	pletacka.debug("DEBUG");
+	Serial.println("SNL");
+	pletacka.debugln("DEBUGLN");
+	pletacka.debugln("DEBUGLN2");
+	Serial.println("SNL2");
+	
 
 
 	//Main loop
 	while (true)
 	{
 		ota.handle();
-		// pletacka.debugln(String(millis()/1000));
-		pletacka.println(pletacka.isChange());
-		delay(10);
+
+		if(statusMetronome.loopMs())
+		{
+			/*pletacka.println*/(pletacka.isChange());
+		}
+		
 	}
 	
 	
@@ -86,7 +84,6 @@ void mainPrograme()
 
 void setup() {
 	mainPrograme();
-	
 }
 
 

@@ -27,66 +27,70 @@ void Pletacka::config(const PletackaConfig config)
 	pletacka_eeprom.begin(50);
 	pletacka_status.init(config);
 
+	delay(100); //required for succes behavour
+
 	println("Sensor " + cfg.sensorName + " is configured");
 	showMsg("Configured");
+	
+	
 }
 
 
 String Pletacka::isChange()
 {
-	pletacka_status.getStatus()
+	return pletacka_status.getStatus();
 }
 
 
-void Pletacka::debug(String message)
+void Pletacka::debug(String message, String prefix)
 {
 	if (cfg.remoteDebugOn)
 	{
-		pletacka_debug.Debug.print(message);
+		pletacka_debug.Debug.print(prefix + message);
 	}
 
 	if (cfg.serialDebugOn)
 	{
-		Serial.print("D:"+message);
+		Serial.print(prefix + message);
 	}
 }
 
-void Pletacka::debugln(String message)
+void Pletacka::debugln(String message, String prefix)
 {
 	if (cfg.remoteDebugOn)
 	{
-		pletacka_debug.Debug.println(message);
+		pletacka_debug.Debug.println(prefix + message);
 	}
 
 	if (cfg.serialDebugOn)
 	{
-		Serial.println("D:"+message);
+		Serial.println(prefix + message);
 	}
 }
 
-void Pletacka::print(String message)
+void Pletacka::print(String message, String prefix)
 {
 	if (cfg.remoteDataOn)
 	{
-		pletacka_debug.Data.print(message);
+		pletacka_debug.Data.print(prefix + message);
 	}
 
 	if (cfg.serialDebugOn)
 	{
-		Serial.print(message);
+		Serial.print(prefix + message);
 	}
 }
 
-void Pletacka::println(String message)
+void Pletacka::println(String message, String prefix)
 {
 	if (cfg.remoteDataOn)
 	{
-		pletacka_debug.Data.println(message);
+		pletacka_debug.Data.println(prefix + message);
 	}
 
 	if (cfg.serialDataOn)
 	{
-		Serial.println(message);
+		Serial.println(prefix + message);
 	}
 }
 

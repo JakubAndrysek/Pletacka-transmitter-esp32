@@ -25,7 +25,7 @@ private:
         bool wifiDefaulAp;  //Run AP on startup
         String apName;      //AP name
         String apPassword;  //AP password
-        int apChanel;        //AP chanel
+        int apChanel;       //AP chanel
     };
 
     wifiConfig wifiCfg;

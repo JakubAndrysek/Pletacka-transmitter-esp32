@@ -9,6 +9,7 @@
 #include "Pletacka_status.hpp"
 
 
+
 #include "EEPROM.h"
 
 class Pletacka: public Pletacka_display
@@ -20,10 +21,6 @@ private:
 	Pletacka_status pletacka_status;
 	EEPROMClass pletacka_eeprom;
 	
-	
-	
-
-	
 
 
 
@@ -33,10 +30,10 @@ public:
 	void config(const PletackaConfig config);
 	String isChange();
 
-	void debug(String message);
-	void debugln(String message);
-	void print(String message);
-	void println(String message);
+	void debug(String message, String prefix = "D:");
+	void debugln(String message, String prefix = "D:");
+	void print(String message, String prefix = "P:");
+	void println(String message, String prefix = "P:");
 	
 	
 };
