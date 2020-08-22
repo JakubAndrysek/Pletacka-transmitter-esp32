@@ -25,10 +25,10 @@ void mainPrograme()
 {
 	//Main setup
 
-	BasicOTA ota;
+	// BasicOTA ota;
 	PletackaConfig config;
 	ArduinoMetronome statusMetronome(10);
-	ArduinoMetronome customMetronome(1500);
+	ArduinoMetronome customMetronome(5000);
 	ArduinoMetronome timeMetronome(1000);
 
 	
@@ -37,7 +37,8 @@ void mainPrograme()
 
 	Serial.println("Start");
 	config.sensorName = "TestESP";
-	config.sensorNumber = 23;
+	config.sensorNumber = 30;
+	config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
 	config.wifiName = "Pletacka-IoT";
 	config.wifiPassword = "PletackaPlete";
 	config.wifiDefaulAp = false;
@@ -58,7 +59,7 @@ void mainPrograme()
 	
 
 	
-	ota.begin();
+	// ota.begin();
 	
 	
 	pletacka.println("println");
@@ -69,22 +70,38 @@ void mainPrograme()
 	//Main loop
 	while (true)
 	{
-		ota.handle();
+		// ota.handle();
+
+		int start = 0;
 
 		if(statusMetronome.loopMs())
 		{
 			String status = "";
 			if((status = pletacka.isChange())!= "")
 			{
+				start = millis();
 				pletacka.println("Status: " + status);
 				pletacka.showStatus(status);
+				pletacka.sendState(status);
+				// pletacka.showSend();
 			}
+
+			// if(millis()-start > 1000)
+			// {
+			// 	pletacka.tft.fillCircle(195, 55, 15, TFT_TRANSPARENT);
+			// }
 			
 		}
 
 		if(timeMetronome.loopMs())
 		{			
 			pletacka.showTime();
+		}
+
+
+		if(customMetronome.loopMs())
+		{			
+			
 		}
 		
 	}

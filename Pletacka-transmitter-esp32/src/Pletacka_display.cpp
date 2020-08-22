@@ -33,7 +33,6 @@ void Pletacka_display::timeInit()
         const int   daylightOffset_sec = 3600; 
 
         configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);       
-        getLocalTime(&tm);
     }
     else
     {
@@ -120,6 +119,12 @@ void Pletacka_display::showStatus(String status)
 
 
 }
+
+void Pletacka_display::showSend()
+{
+    tft.fillCircle(195, 55, 15, TFT_RED);
+}
+
 
 void Pletacka_display::showStatusX(String status, int x)
 {

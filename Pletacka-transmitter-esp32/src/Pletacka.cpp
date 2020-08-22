@@ -12,9 +12,14 @@ Pletacka::~Pletacka()
 void Pletacka::config(const PletackaConfig config)
 {
 	cfg = config;
+
+	
+	
+
 	Serial.begin(115200);
 
 	displayInit(config);
+
 
 	pinMode(BUTTON_1, INPUT);
 	
@@ -30,6 +35,12 @@ void Pletacka::config(const PletackaConfig config)
 	
 	pletacka_eeprom.begin(50);
 	pletacka_status.init(config);
+
+	bool ret = MDNS.begin("pletac-" + cfg.sensorNumber);
+
+	apiState.setServerName(cfg.serverUrl + "/" + cfg.sensorNumber);
+	println("Server:" + apiState.getServerName());
+	// Serial.println();
 
 	delay(200); //required for succes behavour
 	timeInit();
@@ -59,6 +70,24 @@ String Pletacka::isChange()
 
 	return "";
 }
+
+void Pletacka::sendState(String state)
+{
+	auto request = apiState.GetReqest(state);
+
+	Serial.println("\nGET\n  Req:" + request.request + "\n  Code : "+String(request.code)+" ->\""+String(request.main) + "\"");
+
+	if(request.code == 200)
+	{
+		showMsg(request.main + "-" +millis()/5000);
+	}
+	else
+	{
+		showError(request.code + "->"+ request.main);
+	}
+	
+}
+
 
 
 void Pletacka::debug(String message, String prefix)

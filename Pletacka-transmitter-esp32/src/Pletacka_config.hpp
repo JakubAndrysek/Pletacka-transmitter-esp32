@@ -7,6 +7,7 @@ struct PletackaConfig
 	PletackaConfig()
 		: sensorName("")
 		, sensorNumber(1)
+		, serverUrl("")
 		, wifiName("")
 		, wifiPassword("")
 		, wifiChenel(1)
@@ -30,6 +31,7 @@ struct PletackaConfig
 
 	String sensorName;  //Sensor name
 	int sensorNumber;   //Sensor number
+	String serverUrl; 	//Server URL address
 	String wifiName;    //WiFi name
 	String wifiPassword;//WiFi password
 	int wifiChenel;     //WiFi chanel

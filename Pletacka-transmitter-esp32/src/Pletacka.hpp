@@ -2,11 +2,13 @@
 
 #include <Arduino.h>
 
+#include "NetteApi.hpp"
 #include "Pletacka_config.hpp"
 #include "Pletacka_display.hpp"
 #include "Pletacka_wifi.hpp"
 #include "Pletacka_debug.hpp"
 #include "Pletacka_status.hpp"
+#include "ESPmDNS.h"
 
 #include "EEPROM.h"
 
@@ -23,13 +25,17 @@ private:
 	Pletacka_debug pletacka_debug;
 	Pletacka_status pletacka_status;
 	EEPROMClass pletacka_eeprom;
+	NetteApi apiState;
+
 
 
 public:
 	Pletacka();
 	~Pletacka();
 	void config(const PletackaConfig config);
+
 	String isChange();
+	void sendState(String state);
 
 	void debug(String message, String prefix = "D:");
 	void debugln(String message, String prefix = "D:");

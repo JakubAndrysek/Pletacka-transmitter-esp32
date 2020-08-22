@@ -33,6 +33,7 @@ class Pletacka_display
         void hideError();
         void showMsg(String msg);
         void showStatus(String status);
+        void showSend();
         void showStatusX(String status, int x);
         
 };
