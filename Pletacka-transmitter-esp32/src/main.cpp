@@ -28,7 +28,7 @@ void mainPrograme()
 	// BasicOTA ota;
 	PletackaConfig config;
 	ArduinoMetronome statusMetronome(10);
-	ArduinoMetronome customMetronome(5000);
+	ArduinoMetronome customMetronome(1000);
 	ArduinoMetronome timeMetronome(1000);
 
 	
@@ -56,6 +56,8 @@ void mainPrograme()
 	
 	pletacka.config(config);
 
+	statusMetronome.startupDelayMs(3000);
+
 	
 
 	
@@ -66,30 +68,36 @@ void mainPrograme()
 	pletacka.debugln("debugln");
 
 
-
 	//Main loop
 	while (true)
 	{
 		// ota.handle();
 
-		int start = 0;
+		
 
 		if(statusMetronome.loopMs())
 		{
+			
+			
+			// if(start != -1 && (start + 3000 > millis()))
+			// {
+			// 	pletacka.hideSend();
+			// 	start = -1;
+			// 	Serial.println("Hide" + String(millis()));
+			// }
+
+
 			String status = "";
 			if((status = pletacka.isChange())!= "")
 			{
-				start = millis();
+				// start = millis();
 				pletacka.println("Status: " + status);
 				pletacka.showStatus(status);
 				pletacka.sendState(status);
 				// pletacka.showSend();
+				// Serial.println("Show: " + String(start));
 			}
 
-			// if(millis()-start > 1000)
-			// {
-			// 	pletacka.tft.fillCircle(195, 55, 15, TFT_TRANSPARENT);
-			// }
 			
 		}
 
@@ -101,7 +109,7 @@ void mainPrograme()
 
 		if(customMetronome.loopMs())
 		{			
-			
+			// Serial.println("START: " + String(start));
 		}
 		
 	}

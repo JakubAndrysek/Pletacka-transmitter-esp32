@@ -73,17 +73,21 @@ String Pletacka::isChange()
 
 void Pletacka::sendState(String state)
 {
+	static int counter = 0;
+	counter++;
+	
 	auto request = apiState.GetReqest(state);
 
 	Serial.println("\nGET\n  Req:" + request.request + "\n  Code : "+String(request.code)+" ->\""+String(request.main) + "\"");
 
 	if(request.code == 200)
 	{
-		showMsg(request.main + "-" +millis()/5000);
+		showMsg(String(counter) + " -> OK");
 	}
 	else
 	{
 		showError(request.code + "->"+ request.main);
+		hideMsg();
 	}
 	
 }

@@ -32,8 +32,10 @@ class Pletacka_display
         void showError(String msg, int colour = TFT_RED);
         void hideError();
         void showMsg(String msg);
+        void hideMsg();
         void showStatus(String status);
-        void showSend();
+        // void showSend();
+        // void hideSend();
         void showStatusX(String status, int x);
         
 };

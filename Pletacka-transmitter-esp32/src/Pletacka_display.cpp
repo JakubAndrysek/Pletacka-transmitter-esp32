@@ -90,6 +90,11 @@ void Pletacka_display::showMsg(String msg)
     tft.drawString(msg, 110, 5, 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
+void Pletacka_display::hideMsg()
+{
+    tft.fillRoundRect(105, 0,  135, 24, radius, TFT_BLACK);
+}
+
 void Pletacka_display::showStatus(String status)
 {
     int bcgCol;
@@ -120,10 +125,31 @@ void Pletacka_display::showStatus(String status)
 
 }
 
-void Pletacka_display::showSend()
-{
-    tft.fillCircle(195, 55, 15, TFT_RED);
-}
+// void Pletacka_display::showSend()
+// {
+//     int x = 200;
+//     int y = 72;
+//     int r = 20;
+
+//     tft.fillCircle(x, y, r, TFT_RED);
+//     tft.drawLine(x-15, y, x+15, y, TFT_WHITE);
+//     tft.drawLine(x+15, y, x+5, y-8, TFT_WHITE);
+//     tft.drawLine(x+15, y, x+5, y+8, TFT_WHITE);
+    
+// }
+
+// void Pletacka_display::hideSend()
+// {
+//     int x = 200;
+//     int y = 72;
+//     int r = 20;
+
+//     tft.fillCircle(x, y, r, TFT_BLACK);
+
+    
+// }
+
+
 
 
 void Pletacka_display::showStatusX(String status, int x)
