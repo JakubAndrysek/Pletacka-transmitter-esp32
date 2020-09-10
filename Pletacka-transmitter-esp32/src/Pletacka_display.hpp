@@ -34,6 +34,7 @@ class Pletacka_display
         void showMsg(String msg);
         void hideMsg();
         void showStatus(String status);
+        void hideStatus();
         // void showSend();
         // void hideSend();
         void showStatusX(String status, int x);

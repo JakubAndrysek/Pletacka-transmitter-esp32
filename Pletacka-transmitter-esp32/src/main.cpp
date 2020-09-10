@@ -15,6 +15,7 @@
 #include <SPI.h>
 #include "WiFi.h"
 #include "ArduinoMetronome.hpp"
+#include "Board_tester.hpp"
 
 
 
@@ -31,17 +32,20 @@ void mainPrograme()
 	ArduinoMetronome customMetronome(1000);
 	ArduinoMetronome timeMetronome(1000);
 
+	Board_tester tester;
+
 	
 	
 	// delay(2000);
 
 	Serial.println("Start");
-	config.sensorName = "TestESP";
 	config.sensorNumber = 30;
 	config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
-	config.wifiName = "Pletacka-IoT";
-	config.wifiPassword = "PletackaPlete";
-	config.wifiDefaulAp = false;
+	// config.wifiName = "Pletacka-IoT";
+	// config.wifiPassword = "PletackaPlete";
+	config.wifiName = "Technika";
+	config.wifiPassword = "materidouska";
+	config.wifiDefaulAp = true;
 	config.apName = "AP-Pletacka-ESP";
 	config.apPassword = "PletackaPlete";
 	config.remoteDataOn = false;
@@ -57,6 +61,8 @@ void mainPrograme()
 	pletacka.config(config);
 
 	statusMetronome.startupDelayMs(3000);
+
+	tester.test();
 
 	
 
@@ -78,15 +84,6 @@ void mainPrograme()
 		if(statusMetronome.loopMs())
 		{
 			
-			
-			// if(start != -1 && (start + 3000 > millis()))
-			// {
-			// 	pletacka.hideSend();
-			// 	start = -1;
-			// 	Serial.println("Hide" + String(millis()));
-			// }
-
-
 			String status = "";
 			if((status = pletacka.isChange())!= "")
 			{
@@ -94,8 +91,6 @@ void mainPrograme()
 				pletacka.println("Status: " + status);
 				pletacka.showStatus(status);
 				pletacka.sendState(status);
-				// pletacka.showSend();
-				// Serial.println("Show: " + String(start));
 			}
 
 			

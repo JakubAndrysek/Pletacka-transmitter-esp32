@@ -125,6 +125,11 @@ void Pletacka_display::showStatus(String status)
 
 }
 
+void Pletacka_display::hideStatus()
+{
+    tft.fillRoundRect(40, 50,  160, 45, radius, TFT_BLACK);
+}
+
 // void Pletacka_display::showSend()
 // {
 //     int x = 200;

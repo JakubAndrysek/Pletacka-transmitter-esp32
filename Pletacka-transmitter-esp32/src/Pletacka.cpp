@@ -36,7 +36,7 @@ void Pletacka::config(const PletackaConfig config)
 	pletacka_eeprom.begin(50);
 	pletacka_status.init(config);
 
-	bool ret = MDNS.begin("pletac-" + cfg.sensorNumber);
+	MDNS.begin("pletac-" + cfg.sensorNumber);
 
 	apiState.setServerName(cfg.serverUrl + "/" + cfg.sensorNumber);
 	println("Server:" + apiState.getServerName());
@@ -45,7 +45,7 @@ void Pletacka::config(const PletackaConfig config)
 	delay(200); //required for succes behavour
 	timeInit();
 
-	println("Sensor " + cfg.sensorName + " is configured");
+	println("Sensor number " + String(cfg.sensorNumber) + " is configured");
 	
 	
 }
@@ -83,6 +83,7 @@ void Pletacka::sendState(String state)
 	if(request.code == 200)
 	{
 		showMsg(String(counter) + " -> OK");
+		hideError();
 	}
 	else
 	{
