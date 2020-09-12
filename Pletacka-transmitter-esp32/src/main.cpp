@@ -31,8 +31,10 @@ void mainPrograme()
 	ArduinoMetronome statusMetronome(10);
 	ArduinoMetronome customMetronome(1000);
 	ArduinoMetronome timeMetronome(1000);
+	ArduinoMetronome wifiTester(500);
 
-	Board_tester tester;
+
+	
 
 	
 	
@@ -41,12 +43,12 @@ void mainPrograme()
 	Serial.println("Start");
 	config.sensorNumber = 30;
 	config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
-	// config.wifiName = "Pletacka-IoT";
-	// config.wifiPassword = "PletackaPlete";
-	config.wifiName = "Technika";
-	config.wifiPassword = "materidouska";
-	config.wifiDefaulAp = true;
-	config.apName = "AP-Pletacka-ESP";
+	config.wifiName = "Pletacka-IoT";
+	config.wifiPassword = "PletackaPlete";
+	// config.wifiName = "Technika";
+	// config.wifiPassword = "materidouska";
+	config.wifiDefaulAp = false;
+	config.apName = "AP-Pletacka-" + config.sensorNumber;
 	config.apPassword = "PletackaPlete";
 	config.remoteDataOn = false;
 	config.remoteDebugOn = false;
@@ -54,15 +56,14 @@ void mainPrograme()
 	config.debugIP = "192.168.0.113";
 	config.debugPort = 12346;
 	config.dataPort = 12345;
-
-	config.pinFinish = 26;
-	config.pinStop = 27;
 	
 	pletacka.config(config);
 
 	statusMetronome.startupDelayMs(3000);
+	wifiTester.startupDelayMs(3000);
 
-	tester.test();
+	// Board_tester tester;
+	// tester.test();
 
 	
 
@@ -73,6 +74,9 @@ void mainPrograme()
 	pletacka.println("println");
 	pletacka.debugln("debugln");
 
+
+	int ledSend = 0;
+	bool ledWifiState = false;
 
 	//Main loop
 	while (true)
@@ -87,10 +91,17 @@ void mainPrograme()
 			String status = "";
 			if((status = pletacka.isChange())!= "")
 			{
-				// start = millis();
+				ledSend = millis();
+				digitalWrite(LED_SEND, true);
 				pletacka.println("Status: " + status);
 				pletacka.showStatus(status);
 				pletacka.sendState(status);
+				
+			}
+
+			if(millis()-ledSend > 700)
+			{
+				digitalWrite(LED_SEND, false);
 			}
 
 			
@@ -105,6 +116,21 @@ void mainPrograme()
 		if(customMetronome.loopMs())
 		{			
 			// Serial.println("START: " + String(start));
+		}
+		
+		if(wifiTester.loopMs())
+		{			
+			if(WiFi.status() != WL_CONNECTED)
+			{
+				digitalWrite(LED_WIFI, ledWifiState);
+				ledWifiState = !ledWifiState;
+				pletacka.showError("Not connected to WiFi"); 
+				pletacka.showMsg("WiFi ERROR");
+				delay(2000);
+				pletacka.showStatus("RESTART...");
+				delay(3000);
+				ESP.restart(); 
+			}
 		}
 		
 	}

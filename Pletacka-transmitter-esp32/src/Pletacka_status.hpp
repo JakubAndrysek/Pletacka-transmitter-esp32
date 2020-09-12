@@ -15,16 +15,16 @@ private:
 	Optocoupler optoFinish; 
 
 
-    struct pinConfig
-    {
-        pinConfig()
-            : pinFinish(26)
-            , pinStop(27)
-            {
-        }
-        int pinFinish;
-        int pinStop;
-    };
+    // struct pinConfig
+    // {
+    //     pinConfig()
+    //         : pinFinish(26)
+    //         , pinStop(27)
+    //         {
+    //     }
+    //     int pinFinish;
+    //     int pinStop;
+    // };
     
 
     struct Optocuplrs

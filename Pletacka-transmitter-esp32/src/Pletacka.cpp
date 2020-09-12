@@ -21,12 +21,23 @@ void Pletacka::config(const PletackaConfig config)
 	displayInit(config);
 
 
-	pinMode(BUTTON_1, INPUT);
+	pinMode(LED_SEND, OUTPUT);
+    pinMode(LED_WIFI, OUTPUT);
+    pinMode(LED_ON, OUTPUT);
+    
+    pinMode(BTN_ENTER, INPUT);
+    pinMode(BTN_B1, INPUT);
+    pinMode(BTN_UP, INPUT);
+    pinMode(BTN_DOWN, INPUT);
+
+    pinMode(PWR_VOLTAGE, INPUT);
+
+	digitalWrite(LED_ON, true);
 	
 	
 
 	pletacka_wifi.init(config);
-	if(config.remoteDataOn || config.remoteDebugOn || !digitalRead(BUTTON_1))
+	if(config.remoteDataOn || config.remoteDebugOn || !digitalRead(BTN_DOWN))
 	{
 			println("STARTING DEBUG MODE");
 			showError("DEBUG MODE", TFT_ORANGE);
@@ -75,7 +86,7 @@ void Pletacka::sendState(String state)
 {
 	static int counter = 0;
 	counter++;
-	
+
 	auto request = apiState.GetReqest(state);
 
 	Serial.println("\nGET\n  Req:" + request.request + "\n  Code : "+String(request.code)+" ->\""+String(request.main) + "\"");

@@ -4,8 +4,8 @@
 
 void Pletacka_status::init(PletackaConfig config)
 {
-	optoFinish.setPin(config.pinFinish);
-	optoStop.setPin(config.pinStop);
+	optoFinish.setPin(OP_1_FINISH);
+	optoStop.setPin(OP_2_STOP);
 
 	opto.finish = !optoFinish.state();  //Change
 	opto.stop = optoStop.state();

@@ -41,8 +41,6 @@ struct PletackaConfig
 		, debugPort(12345)
 		, dataPort(12346)
 
-		, pinFinish(26)
-		, pinStop(27)
 		{
 
 	}
@@ -64,10 +62,6 @@ struct PletackaConfig
 	int debugPort;		//Proxy debug port
 	int dataPort;		//Proxy data port
 
-	int pinFinish;		//
-	int pinStop;		//
-	
-	
 };
 
 // struct PletackaPinout

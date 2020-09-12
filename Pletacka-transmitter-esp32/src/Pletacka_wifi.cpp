@@ -48,12 +48,15 @@ void Pletacka_wifi::connectWifi()
     WiFi.begin(wifiCfg.wifiName.c_str(), wifiCfg.wifiPassword.c_str());
 
     int counter = 0;
+    bool ledWifiState = true;
 
     while (WiFi.status() != WL_CONNECTED) {
         counter++;
         delay(500);
         pletacka.print(".");
-        pletacka.showMsg("Connecting WiFi"); 
+        pletacka.showMsg("Connecting " + wifiCfg.wifiName); 
+        digitalWrite(LED_WIFI, ledWifiState);
+        ledWifiState = !ledWifiState;
 
         if(counter> 10)
         {
@@ -69,7 +72,8 @@ void Pletacka_wifi::connectWifi()
     pletacka.print("IP address: ");
     pletacka.print(String(WiFi.localIP()));
     pletacka.print("    MAC address: ");
-    pletacka.println(String(WiFi.macAddress()));    
+    pletacka.println(String(WiFi.macAddress()));   
+    digitalWrite(LED_WIFI, true); 
     
 }
 
@@ -78,6 +82,7 @@ void Pletacka_wifi::startAP()
     pletacka.showMsg("AP: "+wifiCfg.apName);
     pletacka.println("Starting **" + wifiCfg.apName + "** AP");
     WiFi.softAP(wifiCfg.apName.c_str(), wifiCfg.apPassword.c_str(), wifiCfg.apChanel );
+
 }
 
 
