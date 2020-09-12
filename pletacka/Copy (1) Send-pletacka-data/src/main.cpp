@@ -13,17 +13,24 @@
 void program()
 {
   const String SENSOR_NAME1 = "Pletacka12";
+  const String SENSOR_NAME2 = "Pletacka11";
 
   const char* ntpServer = "pool.ntp.org";
   const long  gmtOffset_sec = 3600;
   const int   daylightOffset_sec = 3600;  
   
+  enum setups
+  {
+    WAIT_FOR_START = 0,
+    RUN = 1,
+  };
 
   enum pins
   {
     PL1_FINISHED = 26,
     PL1_STOP = 27,    
-
+    PL2_FINISHED = 14,
+    PL2_STOP= 13,
   };
 
   enum states
@@ -45,28 +52,32 @@ void program()
   {
     bool Fin;
     bool Stop;
-  }pletac1;
+  }pletac1, pletac2;
 
   struct  send
   {
     String now;
     String last;
-  }message1;
+  }message1, message2;
 
   
 
   
 
+  int Spletac1_start = WAIT_FOR_START;
   int Spletac1_run = ON;
   
-
+  int Spletac2_start = WAIT_FOR_START;
+  int Spletac2_run = ON;
 
   Optocoupler pl1Fin(PL1_FINISHED);
   Optocoupler pl1Stop(PL1_STOP);
+  Optocoupler pl2Fin(PL2_FINISHED);
+  Optocoupler pl2Stop(PL2_STOP);
 
   BasicOTA OTA;
 
-  NetteApi addEvent("http://192.168.0.148445/Nette/pletacka-website-nette/api/v1/thisSensor/add-event"); //http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event
+  NetteApi addEvent("http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event"); //http://192.168.0.148/Nette/pletacka-website-nette/api/v1/thisSensor/add-event
 
 
   Serial.begin(115200);
@@ -98,9 +109,12 @@ void program()
     
     pletac1.Fin = pl1Fin.state();
     pletac1.Stop = pl1Stop.state();
-
+    pletac2.Fin = pl2Fin.state();
+    pletac2.Stop = pl2Stop.state();
     // pl1Fin.printState();
     // pl1Stop.printState();
+    // pl2Fin.printState();
+    // pl2Stop.printState();
     // tm.tm_hour
     // Serial.printf("Time: %d:%d:%d%\r", tm.tm_hour, tm.tm_min, tm.tm_sec);
 
@@ -110,12 +124,20 @@ void program()
       delay(2000);
       ESP.restart();
     }
-
-    // Serial.println("Pletacka start");
     
+    switch (Spletac1_start)
+    {
+    case WAIT_FOR_START:
+      if((pl1Fin.state()==1)&&(pl1Stop.state()==1))
+      {
+        Spletac1_start = RUN;
+        Serial.println("Pletacka1 - Start");
+      }
+      break;
 
 
-    switch (Spletac1_run)
+    case RUN:
+      switch (Spletac1_run)
       {
       case ON:
         dprintf("ON");
@@ -154,23 +176,94 @@ void program()
         }
         break;
       }
-      delay(10);
+      
+      break;
+    }  
+  
 
- 
+    ////////////////////
+
+    switch (Spletac2_start)
+    {
+    case WAIT_FOR_START:
+      if((pl2Fin.state()==1)&&(pl2Stop.state()==1))
+      {
+        Spletac2_start = RUN;
+        Serial.println("Pletacka2 - Start");
+      }
+      break;
+
+
+    case RUN:
+      switch (Spletac2_run)
+      {
+      case ON:
+        dprintf("ON");
+        Spletac2_run = DEF;
+        message2.now = "ON";
+        break;
+      case STOP:
+        dprintf("STOP");
+        message2.now = "STOP";
+
+        if (pletac2.Stop!=SSTOP) //END STOP
+        {
+          dprintf("REWORK---FIRST");
+          Spletac2_run = DEF;
+          message2.now = "REWORK";
+        }
+        break;
+      
+      default:
+        dprintf("DEF");
+        if(pletac2.Stop==SSTOP)
+        {
+          Spletac2_run = STOP;
+        }
+        else
+        {
+          if(pletac2.Fin==SFINISHED)
+          {
+            message2.now = "FINISHED";
+          }
+          else
+          {
+            message2.now = "";
+          }
+          
+        }
+        break;
+      }
+      
+      break;
+    }  
+    delay(10);
 
 
     if((message1.last != message1.now)&&(message1.now != ""))
     {
       Serial.println("            ++MSG1: "+message1.now);
-      // addEvent.GetReqest(S`ENSOR_NAME1+"/"+message1.now);
+      addEvent.GetReqest(SENSOR_NAME1+"/"+message1.now);
 
 
     }
     message1.last = message1.now;
 
-  
-}
 
+    if((message2.last != message2.now)&&(message2.now != ""))
+    {
+      Serial.println("            --MSG2: "+message2.now);
+      addEvent.GetReqest(SENSOR_NAME2+"/"+message2.now);
+
+
+    }
+    message2.last = message2.now;    
+  }
+
+
+
+
+  
 }
 
 
