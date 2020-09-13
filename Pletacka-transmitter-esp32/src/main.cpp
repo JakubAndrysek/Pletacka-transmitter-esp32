@@ -42,7 +42,7 @@ void mainPrograme()
 	// delay(2000);
 
 	Serial.println("Start");
-	config.sensorNumber = 30;
+	// config.sensorNumber = 30; //Number from 1 to 254
 	// config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
 	config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
 	config.wifiName = "Pletacka-IoT";
@@ -60,8 +60,16 @@ void mainPrograme()
 	config.dataPort = 12345;
 	config.udpIP = "192.168.0.113";
 	config.udpPort = 2727;
+
 	
 	pletacka.config(config);
+
+	if(!digitalRead(BTN_ENTER))
+	{
+		config.sensorNumber = pletacka.editSensorNumber(config.sensorNumber);
+		pletacka.hideMsg();
+	}
+	
 
 	statusMetronome.startupDelayMs(3000);
 	aliveMetronome.startupDelayMs(3000);

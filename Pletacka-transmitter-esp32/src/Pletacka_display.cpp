@@ -21,7 +21,7 @@ void Pletacka_display::displayInit(PletackaConfig config)
     tft.fillScreen(TFT_BLACK);
     tft.setTextColor(textColour);
 
-    showId();
+    showId(pletackaNumber);
 }
 
 void Pletacka_display::timeInit()
@@ -43,10 +43,10 @@ void Pletacka_display::timeInit()
 
 }
 
-void Pletacka_display::showId()
+void Pletacka_display::showId(int number)
 {
     tft.fillCircle(12, 12,  12, TFT_DARKGREEN);
-    tft.drawCentreString(String(pletackaNumber), 12, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
+    tft.drawCentreString(String(number), 12, 5 , 2);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
 
 void Pletacka_display::showTime()
@@ -92,7 +92,7 @@ void Pletacka_display::showMsg(String msg)
 
 void Pletacka_display::hideMsg()
 {
-    tft.fillRoundRect(105, 0,  135, 24, radius, TFT_BLACK);
+    tft.fillRoundRect(105, 0,  135, 24, radius, blockColour);
 }
 
 void Pletacka_display::showStatus(String status)

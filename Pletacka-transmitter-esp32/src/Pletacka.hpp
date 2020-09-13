@@ -39,6 +39,7 @@ public:
 	String isChange();
 	void sendState(String state);
 	void sendAlive(int sensorNumber);
+	int editSensorNumber(int actualNumber);
 
 	void debug(String message, String prefix = "D:");
 	void debugln(String message, String prefix = "D:");

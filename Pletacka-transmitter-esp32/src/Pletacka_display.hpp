@@ -27,7 +27,7 @@ class Pletacka_display
         TFT_eSPI tft = TFT_eSPI(135, 240);
         void displayInit(PletackaConfig config);
         void timeInit();
-        void showId();
+        void showId(int number);
         void showTime();
         void showError(String msg, int colour = TFT_RED);
         void hideError();

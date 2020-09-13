@@ -43,22 +43,16 @@ void Pletacka::config(const PletackaConfig config)
 			showError("DEBUG MODE", TFT_ORANGE);
 			pletacka_debug.init(config);
 	}
-
-	// int first = true;
-	// while(!digitalRead(BTN_ENTER))
-	// {
-	// 	if(first){pletacka.showMsg("Setup s. number");first = false;}
-
-	// 	if(digitalRead(BTN_UP))
-	// 	{
-	// 		cfg.sensorNumber ++;
-	// 	}
-	// }
 	
 	pletacka_eeprom.begin(50);
+
+	if(pletacka_eeprom.read(EEPROM_SNUMBER_A) == 255)
+	{
+		pletacka_eeprom.write(EEPROM_SNUMBER_A, 15);
+	}
+
 	pletacka_status.init(config);
 	pletacka_alive.init(config);
-
 
 
 	MDNS.begin("pletac-" + cfg.sensorNumber);
@@ -122,6 +116,35 @@ void Pletacka::sendAlive(int sensorNumber)
 {
 	pletacka_alive.sendAlive(sensorNumber);
 }
+
+
+
+int Pletacka::editSensorNumber(int actualNumber)
+{
+	int newNumber = actualNumber;
+	pletacka.showMsg("Setup s. number");
+
+	while(!digitalRead(BTN_ENTER))
+	{
+
+		if(!digitalRead(BTN_UP))
+		{
+			newNumber++;
+			pletacka.showId(newNumber);
+		}
+		else if (!digitalRead(BTN_DOWN))
+		{
+			newNumber--;
+			pletacka.showId(newNumber);
+		}
+		delay(300);
+		
+	}
+
+	return newNumber;
+}
+
+
 
 
 
