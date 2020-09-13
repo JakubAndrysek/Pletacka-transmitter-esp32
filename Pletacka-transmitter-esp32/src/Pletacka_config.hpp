@@ -40,6 +40,8 @@ struct PletackaConfig
 		, debugIP("192.168.0.111")
 		, debugPort(12345)
 		, dataPort(12346)
+		, udpIP("192.168.0.112")
+		, udpPort(2727)
 
 		{
 
@@ -61,6 +63,8 @@ struct PletackaConfig
 	String debugIP;		//IP adress of your PC with Lorris
 	int debugPort;		//Proxy debug port
 	int dataPort;		//Proxy data port
+	String udpIP;
+	int udpPort;
 
 };
 

@@ -8,6 +8,7 @@
 #include "Pletacka_wifi.hpp"
 #include "Pletacka_debug.hpp"
 #include "Pletacka_status.hpp"
+#include "Pletacka_alive.hpp"
 #include "ESPmDNS.h"
 
 #include "EEPROM.h"
@@ -24,6 +25,7 @@ private:
 	Pletacka_wifi pletacka_wifi;
 	Pletacka_debug pletacka_debug;
 	Pletacka_status pletacka_status;
+	Pletacka_alive pletacka_alive;
 	EEPROMClass pletacka_eeprom;
 	NetteApi apiState;
 
@@ -36,6 +38,7 @@ public:
 
 	String isChange();
 	void sendState(String state);
+	void sendAlive(int sensorNumber);
 
 	void debug(String message, String prefix = "D:");
 	void debugln(String message, String prefix = "D:");

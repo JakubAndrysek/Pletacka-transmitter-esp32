@@ -31,7 +31,7 @@ String Pletacka_status::getStatus()
 		case ON:
 			// pletacka.debugln("xON");
 			Spletac1_run = DEF;
-			output = "ON";
+			output = "";
 			break;
 		case STOP:
 			// pletacka.debugln("xSTOP");

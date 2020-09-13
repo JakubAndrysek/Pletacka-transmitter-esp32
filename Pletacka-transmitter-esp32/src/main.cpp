@@ -32,6 +32,7 @@ void mainPrograme()
 	ArduinoMetronome customMetronome(1000);
 	ArduinoMetronome timeMetronome(1000);
 	ArduinoMetronome wifiTester(500);
+	ArduinoMetronome aliveMetronome(10000);
 
 
 	
@@ -42,7 +43,8 @@ void mainPrograme()
 
 	Serial.println("Start");
 	config.sensorNumber = 30;
-	config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
+	// config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
+	config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
 	config.wifiName = "Pletacka-IoT";
 	config.wifiPassword = "PletackaPlete";
 	// config.wifiName = "Technika";
@@ -56,10 +58,14 @@ void mainPrograme()
 	config.debugIP = "192.168.0.113";
 	config.debugPort = 12346;
 	config.dataPort = 12345;
+	config.udpIP = "192.168.0.113";
+	config.udpPort = 2727;
 	
 	pletacka.config(config);
 
 	statusMetronome.startupDelayMs(3000);
+	aliveMetronome.startupDelayMs(3000);
+	timeMetronome.startupDelayMs(1000);
 	wifiTester.startupDelayMs(3000);
 
 	// Board_tester tester;
@@ -77,6 +83,7 @@ void mainPrograme()
 
 	int ledSend = 0;
 	bool ledWifiState = false;
+	int startAlive = 0;
 
 	//Main loop
 	while (true)
@@ -84,7 +91,7 @@ void mainPrograme()
 		// ota.handle();
 
 		
-
+		//	Status loop
 		if(statusMetronome.loopMs())
 		{
 			
@@ -107,17 +114,27 @@ void mainPrograme()
 			
 		}
 
+		//	Show time loop
 		if(timeMetronome.loopMs())
 		{			
 			pletacka.showTime();
 		}
 
-
-		if(customMetronome.loopMs())
+		//	Send alive loop
+		if(aliveMetronome.loopMs())
 		{			
-			// Serial.println("START: " + String(start));
+			startAlive = millis();
+			pletacka.sendAlive(config.sensorNumber);
+			digitalWrite(LED_ON, true);
+		}
+
+
+		if(millis()-startAlive > 800)
+		{
+			digitalWrite(LED_ON, false);
 		}
 		
+		//	WiFi connection test loop
 		if(wifiTester.loopMs())
 		{			
 			if(WiFi.status() != WL_CONNECTED)
@@ -132,6 +149,14 @@ void mainPrograme()
 				ESP.restart(); 
 			}
 		}
+
+
+
+		//	 Custom loop
+		if(customMetronome.loopMs())
+		{			
+			// Serial.println("START: " + String(start));
+		}		
 		
 	}
 	
