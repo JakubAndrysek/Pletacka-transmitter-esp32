@@ -23,7 +23,7 @@ String Pletacka_status::getStatus()
 
 	String output = "";
 	
-	opto.finish = !optoFinish.state();	//Change
+	opto.finish = optoFinish.state();	//Change
 	opto.stop = optoStop.state();
 
 	switch (Spletac1_run)

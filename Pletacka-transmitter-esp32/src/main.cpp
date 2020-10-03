@@ -42,9 +42,10 @@ void mainPrograme()
 	// delay(2000);
 
 	Serial.println("Start");
-	// config.sensorNumber = 30; //Number from 1 to 254
+	config.sensorNumber = 17; //Number from 1 to 254
 	// config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
-	config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
+	// config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
+	config.serverUrl = "http://192.168.0.2/api/v1/thisSensor/add-event";
 	config.wifiName = "Pletacka-IoT";
 	config.wifiPassword = "PletackaPlete";
 	// config.wifiName = "Technika";
@@ -58,7 +59,7 @@ void mainPrograme()
 	config.debugIP = "192.168.0.113";
 	config.debugPort = 12346;
 	config.dataPort = 12345;
-	config.udpIP = "192.168.0.113";
+	config.udpIP = "192.168.0.2";
 	config.udpPort = 2727;
 
 	
@@ -71,8 +72,8 @@ void mainPrograme()
 	}
 	
 
-	statusMetronome.startupDelayMs(3000);
-	aliveMetronome.startupDelayMs(3000);
+	statusMetronome.startupDelayMs(15000);
+	aliveMetronome.startupDelayMs(1000);
 	timeMetronome.startupDelayMs(1000);
 	wifiTester.startupDelayMs(3000);
 
