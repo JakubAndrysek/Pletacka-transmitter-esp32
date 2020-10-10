@@ -34,8 +34,6 @@ void mainPrograme()
 	ArduinoMetronome wifiTester(500);
 	ArduinoMetronome aliveMetronome(10000);
 
-
-
 	
 	
 	// delay(2000);
