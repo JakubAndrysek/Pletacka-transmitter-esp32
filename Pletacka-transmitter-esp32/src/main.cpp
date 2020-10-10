@@ -35,7 +35,6 @@ void mainPrograme()
 	ArduinoMetronome aliveMetronome(10000);
 
 
-	
 
 	
 	
