@@ -2,7 +2,7 @@
 #include "Pletacka.hpp"
 
 
-void Pletacka_status::init(PletackaConfig config)
+void Pletacka_status::init(PletackaConfig* config)
 {
 	optoFinish.setPin(OP_1_FINISH);
 	optoStop.setPin(OP_2_STOP);

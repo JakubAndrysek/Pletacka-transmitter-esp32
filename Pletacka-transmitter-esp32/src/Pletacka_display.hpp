@@ -25,7 +25,7 @@ class Pletacka_display
 
     public:
         TFT_eSPI tft = TFT_eSPI(135, 240);
-        void displayInit(PletackaConfig config);
+        void displayInit(PletackaConfig* config);
         void timeInit();
         void showId(int number);
         void showTime();

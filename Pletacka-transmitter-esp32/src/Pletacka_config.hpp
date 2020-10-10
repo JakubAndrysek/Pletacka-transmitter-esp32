@@ -71,47 +71,6 @@ struct PletackaConfig
 
 };
 
-// struct PletackaPinout
-// {
-// 	PletackaPinout()
-// 		: LED_SEND(27)
-// 		, LED_WIFI(26)
-// 		, LED_ON(25)
-// 		, OP_FINISH(36)
-// 		, OP_STOP(37)
-// 		, OP_3(38)
-// 		, OP_4(39)
-// 		, BTN_ENTER(21)
-// 		, BTN_B1(12)
-// 		, TMP_SDA(22)
-// 		, TMP_SCL(17)
-// 		, TMP_OS(2)
-// 		, PWR_VOLTAGE(32)
-// 		, GPIO_13(13)
-// 		, GPIO_15(15)
-// 		, GPIO_33(33)
-// 		{
-
-// 	}
-
-// 	int LED_SEND;
-// 	int LED_WIFI;
-// 	int LED_ON;	
-// 	int OP_FINISH;
-// 	int OP_STOP;
-// 	int OP_3;
-// 	int OP_4;
-// 	int BTN_ENTER;
-// 	int BTN_B1;
-// 	int TMP_SDA;
-// 	int TMP_SCL;
-// 	int TMP_OS;
-// 	int PWR_VOLTAGE;
-// 	int GPIO_13;
-// 	int GPIO_15;
-// 	int GPIO_33;	
-// };
-
 
 
 enum eepromConfig

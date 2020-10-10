@@ -14,14 +14,14 @@ Pletacka_wifi::~Pletacka_wifi()
 {
 }
 
-void Pletacka_wifi::init(PletackaConfig config)
+void Pletacka_wifi::init(PletackaConfig* config)
 {
-    wifiCfg.wifiName = config.wifiName;
-    wifiCfg.wifiPassword = config.wifiPassword;
-    wifiCfg.wifiChanel = config.wifiChenel;
-    wifiCfg.wifiDefaulAp = config.wifiDefaulAp;
-    wifiCfg.apName = config.apName;
-    wifiCfg.apPassword = config.apPassword;
+    wifiCfg.wifiName = config->wifiName;
+    wifiCfg.wifiPassword = config->wifiPassword;
+    wifiCfg.wifiChanel = config->wifiChenel;
+    wifiCfg.wifiDefaulAp = config->wifiDefaulAp;
+    wifiCfg.apName = config->apName;
+    wifiCfg.apPassword = config->apPassword;
 
     configConnection();
 }

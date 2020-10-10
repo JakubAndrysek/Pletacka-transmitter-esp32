@@ -42,7 +42,7 @@ void mainPrograme()
 	// delay(2000);
 
 	Serial.println("Start");
-	config.sensorNumber = 17; //Number from 1 to 254
+	// config.sensorNumber = 14; //Number from 1 to 254
 	// config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
 	// config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
 	config.serverUrl = "http://192.168.0.2/api/v1/thisSensor/add-event";
@@ -63,7 +63,7 @@ void mainPrograme()
 	config.udpPort = 2727;
 
 	
-	pletacka.config(config);
+	pletacka.config(&config);
 
 	if(!digitalRead(BTN_ENTER))
 	{

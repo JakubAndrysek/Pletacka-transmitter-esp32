@@ -11,9 +11,9 @@ String tim(int time)
     return String(time);
 }
 
-void Pletacka_display::displayInit(PletackaConfig config)
+void Pletacka_display::displayInit(PletackaConfig* config)
 {
-    pletackaNumber = config.sensorNumber;
+    pletackaNumber = config->sensorNumber;
     
     tft.init();
     tft.fontHeight(2);

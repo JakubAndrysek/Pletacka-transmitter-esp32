@@ -9,65 +9,76 @@ Pletacka::~Pletacka()
 {
 }
 
-void Pletacka::config(const PletackaConfig config)
+void Pletacka::config(PletackaConfig* config)
 {
 	cfg = config;
 
 	
-	
 
 	Serial.begin(115200);
+
+
+	// Serial.printf("Config - %d Cfg - %d", config->sensorNumber, cfg->sensorNumber);
+
+	// cfg->sensorNumber++;
+
+	// Serial.printf("Config - %d Cfg - %d", config->sensorNumber, cfg->sensorNumber);
+	
+
 
 	pletacka_eeprom.begin(50);
 
 	if(pletacka_eeprom.read(EEPROM_SNUMBER_A) == 255)
 	{
-		pletacka_eeprom.write(EEPROM_SNUMBER_A, 17);
+		pletacka_eeprom.write(EEPROM_SNUMBER_A, 1);
 	}
 
-	cfg.sensorNumber = pletacka_eeprom.read(EEPROM_SNUMBER_A);	
+	cfg->sensorNumber = pletacka_eeprom.read(EEPROM_SNUMBER_A);	
 
 	displayInit(cfg);
 
 
 	pinMode(LED_SEND, OUTPUT);
-    pinMode(LED_WIFI, OUTPUT);
-    pinMode(LED_ON, OUTPUT);
-    
-    pinMode(BTN_ENTER, INPUT);
-    pinMode(BTN_B1, INPUT);
-    pinMode(BTN_UP, INPUT);
-    pinMode(BTN_DOWN, INPUT);
+		pinMode(LED_WIFI, OUTPUT);
+		pinMode(LED_ON, OUTPUT);
+		
+		pinMode(BTN_ENTER, INPUT);
+		pinMode(BTN_B1, INPUT);
+		pinMode(BTN_UP, INPUT);
+		pinMode(BTN_DOWN, INPUT);
 
-    pinMode(PWR_VOLTAGE, INPUT);
+		pinMode(PWR_VOLTAGE, INPUT);
 
 	digitalWrite(LED_ON, true);
 
 
 	pletacka_wifi.init(cfg);
-	if(cfg.remoteDataOn || cfg.remoteDebugOn || !digitalRead(BTN_DOWN))
+
+
+	
+	if(cfg->remoteDataOn || cfg->remoteDebugOn || !digitalRead(BTN_DOWN))
 	{
 			println("STARTING DEBUG MODE");
 			showError("DEBUG MODE", TFT_ORANGE);
-			pletacka_debug.init(cfg);
+			pletacka_debug.init(*cfg);
 	}
 	
 
 
 	pletacka_status.init(cfg);
-	pletacka_alive.init(cfg);
+	pletacka_alive.init(*cfg);
 
 
-	MDNS.begin("pletac-" + cfg.sensorNumber);
+	MDNS.begin("pletac-" + cfg->sensorNumber);
 
-	apiState.setServerName(cfg.serverUrl + "/" + cfg.sensorNumber);
+	apiState.setServerName(cfg->serverUrl + "/" + cfg->sensorNumber);
 	println("Server:" + apiState.getServerName());
 	// Serial.println();
 
 	delay(200); //required for succes behavour
 	timeInit();
 
-	println("Sensor number " + String(cfg.sensorNumber) + " is configured");
+	println("Sensor number " + String(cfg->sensorNumber) + " is configured");
 	
 	
 }
@@ -155,12 +166,12 @@ int Pletacka::editSensorNumber(int actualNumber)
 
 void Pletacka::debug(String message, String prefix)
 {
-	if (cfg.remoteDebugOn)
+	if (cfg->remoteDebugOn)
 	{
 		pletacka_debug.Debug.print(prefix + message);
 	}
 
-	if (cfg.serialDebugOn)
+	if (cfg->serialDebugOn)
 	{
 		Serial.print(prefix + message);
 	}
@@ -168,12 +179,12 @@ void Pletacka::debug(String message, String prefix)
 
 void Pletacka::debugln(String message, String prefix)
 {
-	if (cfg.remoteDebugOn)
+	if (cfg->remoteDebugOn)
 	{
 		pletacka_debug.Debug.println(prefix + message);
 	}
 
-	if (cfg.serialDebugOn)
+	if (cfg->serialDebugOn)
 	{
 		Serial.println(prefix + message);
 	}
@@ -181,12 +192,12 @@ void Pletacka::debugln(String message, String prefix)
 
 void Pletacka::print(String message, String prefix)
 {
-	if (cfg.remoteDataOn)
+	if (cfg->remoteDataOn)
 	{
 		pletacka_debug.Data.print(prefix + message);
 	}
 
-	if (cfg.serialDebugOn)
+	if (cfg->serialDebugOn)
 	{
 		Serial.print(prefix + message);
 	}
@@ -194,12 +205,12 @@ void Pletacka::print(String message, String prefix)
 
 void Pletacka::println(String message, String prefix)
 {
-	if (cfg.remoteDataOn)
+	if (cfg->remoteDataOn)
 	{
 		pletacka_debug.Data.println(prefix + message);
 	}
 
-	if (cfg.serialDataOn)
+	if (cfg->serialDataOn)
 	{
 		Serial.println(prefix + message);
 	}

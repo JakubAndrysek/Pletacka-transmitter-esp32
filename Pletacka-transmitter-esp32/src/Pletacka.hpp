@@ -21,7 +21,7 @@
 class Pletacka: public Pletacka_display
 {
 private:
-	PletackaConfig cfg;
+	PletackaConfig* cfg = NULL;
 	Pletacka_wifi pletacka_wifi;
 	Pletacka_debug pletacka_debug;
 	Pletacka_status pletacka_status;
@@ -34,7 +34,7 @@ private:
 public:
 	Pletacka();
 	~Pletacka();
-	void config(const PletackaConfig config);
+	void config(PletackaConfig* config);
 
 	String isChange();
 	void sendState(String state);
