@@ -22,7 +22,7 @@
 #define GPIO_33 33
 
 #define EEPROM_SIZE 50
-#define EEPROM_SNUMBER_A 30
+#define EEPROM_SNUMBER_A 5
 
 struct PletackaConfig
 {

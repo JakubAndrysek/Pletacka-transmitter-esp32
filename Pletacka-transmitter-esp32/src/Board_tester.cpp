@@ -28,38 +28,38 @@ void Board_tester::test()
     delay(1500);  
 
 
-    pletacka.showMsg("In voltage:");
+    // pletacka.showMsg("In voltage:");
 
     
-    int start = millis();
+    // int start = millis();
 
-    do{
-        float x = analogRead(PWR_VOLTAGE)/0.77/1024;
-        pletacka.showStatus(String(x*43) + "V");
-        delay(300);
-    }while(millis()-start<5000);
+    // do{
+    //     float x = analogRead(PWR_VOLTAGE)/0.77/1024;
+    //     pletacka.showStatus(String(x*43) + "V");
+    //     delay(300);
+    // }while(millis()-start<5000);
 
-    pletacka.hideStatus();
-    delay(500);    
+    // pletacka.hideStatus();
+    // delay(500);    
 
 
 
     pletacka.showMsg("LEDS");
 
     digitalWrite(LED_SEND, true);
-    delay(500);
+    delay(300);
     digitalWrite(LED_SEND, false);
-    delay(500);
+    delay(300);
 
     digitalWrite(LED_WIFI, true);
-    delay(500);
+    delay(300);
     digitalWrite(LED_WIFI, false);
-    delay(500);
+    delay(300);
 
     digitalWrite(LED_ON, true);
-    delay(500);
+    delay(300);
     digitalWrite(LED_ON, false);
-    delay(500);
+    delay(300);
 
 
     pletacka.showMsg("Press button:");

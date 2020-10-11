@@ -29,6 +29,8 @@ private:
     };
 
     wifiConfig wifiCfg;
+
+		int sensorNumber = 1;
     
 public:
     Pletacka_wifi();

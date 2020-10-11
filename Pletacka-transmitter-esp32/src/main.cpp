@@ -43,8 +43,10 @@ void mainPrograme()
 	// config.serverUrl = "http://192.168.0.172/api/v1/thisSensor/add-event";
 	// config.serverUrl = "http://192.168.0.113/Pletacka-website/api/v1/thisSensor/add-event";
 	config.serverUrl = "http://192.168.0.2/api/v1/thisSensor/add-event";
-	config.wifiName = "Pletacka-IoT";
-	config.wifiPassword = "PletackaPlete";
+	// config.wifiName = "Pletacka-IoT";
+	// config.wifiPassword = "PletackaPlete";
+	config.wifiName = "WLRotex";
+	config.wifiPassword = "$BlueC6r&R06D";	
 	// config.wifiName = "Technika";
 	// config.wifiPassword = "materidouska";
 	config.wifiDefaulAp = false;
@@ -61,12 +63,6 @@ void mainPrograme()
 
 	
 	pletacka.config(&config);
-
-	if(!digitalRead(BTN_ENTER))
-	{
-		config.sensorNumber = pletacka.editSensorNumber(config.sensorNumber);
-		pletacka.hideMsg();
-	}
 	
 
 	statusMetronome.startupDelayMs(15000);

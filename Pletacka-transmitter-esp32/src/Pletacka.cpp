@@ -13,49 +13,42 @@ void Pletacka::config(PletackaConfig* config)
 {
 	cfg = config;
 
-	
-
 	Serial.begin(115200);
 
-
-	// Serial.printf("Config - %d Cfg - %d", config->sensorNumber, cfg->sensorNumber);
-
-	// cfg->sensorNumber++;
-
-	// Serial.printf("Config - %d Cfg - %d", config->sensorNumber, cfg->sensorNumber);
-	
-
-
 	pletacka_eeprom.begin(50);
-
 	if(pletacka_eeprom.read(EEPROM_SNUMBER_A) == 255)
 	{
 		pletacka_eeprom.write(EEPROM_SNUMBER_A, 1);
+		pletacka_eeprom.commit();
 	}
 
 	cfg->sensorNumber = pletacka_eeprom.read(EEPROM_SNUMBER_A);	
 
 	displayInit(cfg);
 
-
 	pinMode(LED_SEND, OUTPUT);
-		pinMode(LED_WIFI, OUTPUT);
-		pinMode(LED_ON, OUTPUT);
-		
-		pinMode(BTN_ENTER, INPUT);
-		pinMode(BTN_B1, INPUT);
-		pinMode(BTN_UP, INPUT);
-		pinMode(BTN_DOWN, INPUT);
+	pinMode(LED_WIFI, OUTPUT);
+	pinMode(LED_ON, OUTPUT);
+	
+	pinMode(BTN_ENTER, INPUT);
+	pinMode(BTN_B1, INPUT);
+	pinMode(BTN_UP, INPUT);
+	pinMode(BTN_DOWN, INPUT);
 
-		pinMode(PWR_VOLTAGE, INPUT);
+	pinMode(PWR_VOLTAGE, INPUT);
 
 	digitalWrite(LED_ON, true);
 
 
+
+	if(!digitalRead(BTN_ENTER))
+	{
+		cfg->sensorNumber = editSensorNumber(cfg->sensorNumber);
+		pletacka.hideMsg();
+	}
+
 	pletacka_wifi.init(cfg);
 
-
-	
 	if(cfg->remoteDataOn || cfg->remoteDebugOn || !digitalRead(BTN_DOWN))
 	{
 			println("STARTING DEBUG MODE");
@@ -151,11 +144,23 @@ int Pletacka::editSensorNumber(int actualNumber)
 			newNumber--;
 			pletacka.showId(newNumber);
 		}
+
+		
 		delay(300);
 		
 	}
 
-	pletacka_eeprom.write(EEPROM_SNUMBER_A, newNumber);
+	if(actualNumber != newNumber)
+	{
+		pletacka_eeprom.write(EEPROM_SNUMBER_A, newNumber);
+		pletacka_eeprom.commit();
+		pletacka.showError("OK", TFT_GREEN);
+	}
+	else
+	{
+		pletacka.showError("Nothing to change", TFT_ORANGE);
+	}
+	
 
 	return newNumber;
 }

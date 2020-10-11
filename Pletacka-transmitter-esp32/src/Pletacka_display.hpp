@@ -16,7 +16,7 @@ class Pletacka_display
         int errorColour = TFT_RED;
         int radius = 4;
 
-        int pletackaNumber = 0;
+        int *pletackaNumber = 0;
 
         struct tm tm;
         

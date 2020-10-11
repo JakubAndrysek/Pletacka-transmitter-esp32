@@ -13,7 +13,7 @@ String tim(int time)
 
 void Pletacka_display::displayInit(PletackaConfig* config)
 {
-    pletackaNumber = config->sensorNumber;
+    pletackaNumber = &(config->sensorNumber);
     
     tft.init();
     tft.fontHeight(2);
@@ -21,7 +21,7 @@ void Pletacka_display::displayInit(PletackaConfig* config)
     tft.fillScreen(TFT_BLACK);
     tft.setTextColor(textColour);
 
-    showId(pletackaNumber);
+    showId(*pletackaNumber);
 }
 
 void Pletacka_display::timeInit()
